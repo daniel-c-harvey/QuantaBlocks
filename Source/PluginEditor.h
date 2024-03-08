@@ -10,6 +10,7 @@
 
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
+#include "EnvelopeGateEditor.h"
 
 //==============================================================================
 /**
@@ -17,7 +18,7 @@
 class QuantaBlocksAudioProcessorEditor  : public juce::AudioProcessorEditor
 {
 public:
-    QuantaBlocksAudioProcessorEditor (QuantaBlocksAudioProcessor&);
+    QuantaBlocksAudioProcessorEditor (QuantaBlocksAudioProcessor&, EnvelopeGateEditor&);
     ~QuantaBlocksAudioProcessorEditor() override;
 
     //==============================================================================
@@ -28,6 +29,7 @@ private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     QuantaBlocksAudioProcessor& audioProcessor;
+    EnvelopeGateEditor& mainEditor;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (QuantaBlocksAudioProcessorEditor)
 };

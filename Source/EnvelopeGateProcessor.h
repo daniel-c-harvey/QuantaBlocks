@@ -9,3 +9,11 @@
 */
 
 #pragma once
+
+#include <JuceHeader.h>
+
+class EnvelopeGateProcessor
+{
+public:
+    
+};
