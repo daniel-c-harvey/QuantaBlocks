@@ -3,6 +3,16 @@
 <JUCERPROJECT id="oNQrXk" name="Quanta Blocks" projectType="audioplug" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
   <MAINGROUP id="TFpdnm" name="Quanta Blocks">
+    <GROUP id="{F4CDA7FB-D714-C8BF-A949-02DC0EA85A1C}" name="EnvelopeGate">
+      <FILE id="gePFXC" name="EnvelopeGateEditor.cpp" compile="1" resource="0"
+            file="Source/EnvelopeGateEditor.cpp"/>
+      <FILE id="xbbXwE" name="EnvelopeGateEditor.h" compile="0" resource="0"
+            file="Source/EnvelopeGateEditor.h"/>
+      <FILE id="ZvSXiL" name="EnvelopeGateProcessor.cpp" compile="1" resource="0"
+            file="Source/EnvelopeGateProcessor.cpp"/>
+      <FILE id="C0iYfV" name="EnvelopeGateProcessor.h" compile="0" resource="0"
+            file="Source/EnvelopeGateProcessor.h"/>
+    </GROUP>
     <GROUP id="{044C73DC-31ED-B636-95BC-6C37D8A3FF2D}" name="Source">
       <FILE id="vhZvRM" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
