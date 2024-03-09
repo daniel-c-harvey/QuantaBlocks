@@ -19,4 +19,6 @@ public:
     ~QuantaBlocksProcessor() override;
 
     void processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
+    static juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
+    juce::AudioProcessorValueTreeState apvts{ *this, nullptr, "Parameters", createParameterLayout() };
 };
