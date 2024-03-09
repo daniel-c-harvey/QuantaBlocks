@@ -10,12 +10,12 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-QuantaBlocksAudioProcessorEditor::QuantaBlocksAudioProcessorEditor (QuantaBlocksAudioProcessor& p, EnvelopeGateEditor& e)
-    : AudioProcessorEditor (&p), audioProcessor (p), mainEditor(e)
+QuantaBlocksAudioProcessorEditor::QuantaBlocksAudioProcessorEditor (QuantaBlocksAudioProcessor& p)
+    : EnvelopeGateEditor(p), audioProcessor (p)
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (mainEditor.getSizeX(), mainEditor.getSizeY());
+    setSize (getSizeX(), getSizeY());
 }
 
 QuantaBlocksAudioProcessorEditor::~QuantaBlocksAudioProcessorEditor()
@@ -26,7 +26,7 @@ QuantaBlocksAudioProcessorEditor::~QuantaBlocksAudioProcessorEditor()
 void QuantaBlocksAudioProcessorEditor::paint (juce::Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
-    mainEditor.paint(g);
+    EnvelopeGateEditor::paint(g);
 }
 
 void QuantaBlocksAudioProcessorEditor::resized()

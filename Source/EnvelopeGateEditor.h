@@ -11,17 +11,21 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "EnvelopeGateProcessor.h"
 
-class EnvelopeGateEditor : public juce::Component
+class EnvelopeGateEditor : public juce::AudioProcessorEditor
 {
 public:
-    EnvelopeGateEditor(int sizeX, int sizeY);
+    EnvelopeGateEditor(EnvelopeGateProcessor&);
 
     int getSizeX();
     int getSizeY();
 
     void paint(juce::Graphics&) override;
     void resized() override;
+
+protected:
+    EnvelopeGateProcessor& processor;
 
 private:
     int sizeX;

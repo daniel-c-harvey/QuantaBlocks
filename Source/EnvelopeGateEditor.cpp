@@ -11,20 +11,22 @@
 #include "EnvelopeGateEditor.h"
 #include <JuceHeader.h>
 
-EnvelopeGateEditor::EnvelopeGateEditor(int x, int y) : Component()
+EnvelopeGateEditor::EnvelopeGateEditor(EnvelopeGateProcessor& p) 
+    : juce::AudioProcessorEditor(&p), processor(p)
 {
-    sizeX = x;
-    sizeY = y;
+    // Set default size
+    sizeX = 300;
+    sizeY = 200;
 }
 
 int EnvelopeGateEditor::getSizeX()
 {
-    return 0;
+    return sizeX;
 }
 
 int EnvelopeGateEditor::getSizeY()
 {
-    return 0;
+    return sizeY;
 }
 
 void EnvelopeGateEditor::paint(juce::Graphics& g)

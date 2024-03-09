@@ -9,3 +9,19 @@
 */
 
 #include "EnvelopeGateProcessor.h"
+
+EnvelopeGateProcessor::EnvelopeGateProcessor()
+    : AudioProcessor (juce::AudioProcessor::BusesProperties()
+        .withInput("Input", juce::AudioChannelSet::stereo(), true)
+        .withOutput("Output", juce::AudioChannelSet::stereo(), true)
+    )
+{
+}
+
+EnvelopeGateProcessor::~EnvelopeGateProcessor()
+{
+}
+
+void EnvelopeGateProcessor::processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&)
+{
+}
