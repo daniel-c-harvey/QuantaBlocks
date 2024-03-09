@@ -11,6 +11,7 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "ViewModel.h"
 
 class QuantaBlocksProcessor : public juce::AudioProcessor
 {
@@ -18,7 +19,11 @@ public:
     QuantaBlocksProcessor();
     ~QuantaBlocksProcessor() override;
 
+    //==============================================================================
     void processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
-    static juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
-    juce::AudioProcessorValueTreeState apvts{ *this, nullptr, "Parameters", createParameterLayout() };
+    void getStateInformation(juce::MemoryBlock& destData) override;
+    void setStateInformation(const void* data, int sizeInBytes) override;
+    
+    //==============================================================================
+    QuantaBlocksViewModel parameters;
 };

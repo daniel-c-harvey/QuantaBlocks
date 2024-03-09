@@ -11,11 +11,12 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "MainProcessor.h"
 
 class QuantaBlocksViewModel
 {
 public:
-    QuantaBlocksViewModel();
+    QuantaBlocksViewModel(QuantaBlocksProcessor&);
 
     float getAttack();
     void setAttack(float);
@@ -31,6 +32,9 @@ public:
     
     float getEnvGain();
     void setEnvGain(float);
+
+    static juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
+    juce::AudioProcessorValueTreeState apvts;
     
 protected:    
     float attack_ms;

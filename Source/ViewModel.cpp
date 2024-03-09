@@ -10,7 +10,8 @@
 
 #include "ViewModel.h"
 
-QuantaBlocksViewModel::QuantaBlocksViewModel()
+QuantaBlocksViewModel::QuantaBlocksViewModel(QuantaBlocksProcessor& p)
+    : apvts { p, nullptr, "Parameters", createParameterLayout() }
 {
     attack_ms = 0.f;
     release_ms = 0.f;
@@ -67,4 +68,27 @@ float QuantaBlocksViewModel::getEnvGain()
 void QuantaBlocksViewModel::setEnvGain(float gain)
 {
     env_gain = gain;
+}
+
+juce::AudioProcessorValueTreeState::ParameterLayout QuantaBlocksViewModel::createParameterLayout()
+{
+    juce::AudioProcessorValueTreeState::ParameterLayout layout;
+
+    layout.add(std::make_unique<juce::AudioParameterFloat>(
+        "attack",
+        "Attack",
+        juce::NormalisableRange<float>(0.f, 2000.f, 1.f, 5.f, false),
+        10.f,
+        "Attack (ms)"
+        ));
+
+    layout.add(std::make_unique<juce::AudioParameterFloat>(
+        "release",
+        "Release",
+        juce::NormalisableRange<float>(0.f, 2000.f, 1.f, 5.f, false),
+        10.f,
+        "Release(ms)"
+        ));
+
+    return layout;
 }
