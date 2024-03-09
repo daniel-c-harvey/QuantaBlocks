@@ -15,7 +15,7 @@
 //==============================================================================
 /**
 */
-class QuantaBlocksAudioProcessorEditor : public EnvelopeGateEditor
+class QuantaBlocksAudioProcessorEditor : public QuantaBlocksEditor
 {
 public:
     QuantaBlocksAudioProcessorEditor (QuantaBlocksAudioProcessor&);

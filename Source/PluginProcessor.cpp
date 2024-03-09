@@ -11,7 +11,7 @@
 
 //==============================================================================
 QuantaBlocksAudioProcessor::QuantaBlocksAudioProcessor()
-    : EnvelopeGateProcessor()
+    : QuantaBlocksProcessor()
 {
 }
 

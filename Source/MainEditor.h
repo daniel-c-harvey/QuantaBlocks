@@ -14,15 +14,15 @@
 #include "MainProcessor.h"
 #include "ViewModel.h"
 
-class EnvelopeGateEditor : public juce::AudioProcessorEditor
+class QuantaBlocksEditor : public juce::AudioProcessorEditor
 {
 public:
-    EnvelopeGateEditor(EnvelopeGateProcessor&);
+    QuantaBlocksEditor(QuantaBlocksProcessor&);
 
     void paint(juce::Graphics&) override;
     void resized() override;
 
 protected:
-    EnvelopeGateProcessor& processor;
+    QuantaBlocksProcessor& processor;
     QuantaBlocksViewModel model;
 };

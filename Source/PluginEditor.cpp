@@ -11,7 +11,7 @@
 
 //==============================================================================
 QuantaBlocksAudioProcessorEditor::QuantaBlocksAudioProcessorEditor (QuantaBlocksAudioProcessor& p)
-    : EnvelopeGateEditor(p), audioProcessor (p) 
+    : QuantaBlocksEditor(p), audioProcessor (p) 
 {
 }
 
@@ -22,10 +22,10 @@ QuantaBlocksAudioProcessorEditor::~QuantaBlocksAudioProcessorEditor()
 //==============================================================================
 void QuantaBlocksAudioProcessorEditor::paint (juce::Graphics& g)
 {
-    EnvelopeGateEditor::paint(g);
+    QuantaBlocksEditor::paint(g);
 }
 
 void QuantaBlocksAudioProcessorEditor::resized()
 {
-    EnvelopeGateEditor::resized();
+    QuantaBlocksEditor::resized();
 }

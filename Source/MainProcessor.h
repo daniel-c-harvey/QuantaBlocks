@@ -12,11 +12,11 @@
 
 #include <JuceHeader.h>
 
-class EnvelopeGateProcessor : public juce::AudioProcessor
+class QuantaBlocksProcessor : public juce::AudioProcessor
 {
 public:
-    EnvelopeGateProcessor();
-    ~EnvelopeGateProcessor() override;
+    QuantaBlocksProcessor();
+    ~QuantaBlocksProcessor() override;
 
     void processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
 };

@@ -10,7 +10,7 @@
 
 #include "MainProcessor.h"
 
-EnvelopeGateProcessor::EnvelopeGateProcessor()
+QuantaBlocksProcessor::QuantaBlocksProcessor()
     : AudioProcessor (juce::AudioProcessor::BusesProperties()
         .withInput("Input", juce::AudioChannelSet::stereo(), true)
         .withOutput("Output", juce::AudioChannelSet::stereo(), true)
@@ -18,10 +18,10 @@ EnvelopeGateProcessor::EnvelopeGateProcessor()
 {
 }
 
-EnvelopeGateProcessor::~EnvelopeGateProcessor()
+QuantaBlocksProcessor::~QuantaBlocksProcessor()
 {
 }
 
-void EnvelopeGateProcessor::processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&)
+void QuantaBlocksProcessor::processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&)
 {
 }

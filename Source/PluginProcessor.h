@@ -14,7 +14,7 @@
 //==============================================================================
 /**
 */
-class QuantaBlocksAudioProcessor : public EnvelopeGateProcessor
+class QuantaBlocksAudioProcessor : public QuantaBlocksProcessor
 {
 public:
     //==============================================================================
