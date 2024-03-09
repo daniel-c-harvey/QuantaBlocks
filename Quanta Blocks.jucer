@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="oNQrXk" name="Quanta Blocks" projectType="audioplug" useAppConfig="0"
-              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
+              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" companyWebsite="snailbird.net"
+              companyEmail="daniel@snailbird.net" companyName="Snailbird Lab"
+              pluginFormats="buildStandalone,buildVST3" postExportShellCommandWin="echo Hello; break;">
   <MAINGROUP id="TFpdnm" name="Quanta Blocks">
     <GROUP id="{F4CDA7FB-D714-C8BF-A949-02DC0EA85A1C}" name="EnvelopeGate">
       <FILE id="gePFXC" name="EnvelopeGateEditor.cpp" compile="1" resource="0"
