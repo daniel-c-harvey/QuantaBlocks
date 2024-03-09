@@ -14,19 +14,8 @@
 EnvelopeGateEditor::EnvelopeGateEditor(EnvelopeGateProcessor& p) 
     : juce::AudioProcessorEditor(&p), processor(p)
 {
-    // Set default size
-    sizeX = 300;
-    sizeY = 200;
-}
-
-int EnvelopeGateEditor::getSizeX()
-{
-    return sizeX;
-}
-
-int EnvelopeGateEditor::getSizeY()
-{
-    return sizeY;
+    // default size
+    setSize(300, 400);
 }
 
 void EnvelopeGateEditor::paint(juce::Graphics& g)
@@ -40,4 +29,5 @@ void EnvelopeGateEditor::paint(juce::Graphics& g)
 
 void EnvelopeGateEditor::resized()
 {
+    setBounds(getBoundsInParent());
 }

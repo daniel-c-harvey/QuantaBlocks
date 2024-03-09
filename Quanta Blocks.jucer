@@ -10,6 +10,10 @@
             file="Source/EnvelopeGateEditor.cpp"/>
       <FILE id="xbbXwE" name="EnvelopeGateEditor.h" compile="0" resource="0"
             file="Source/EnvelopeGateEditor.h"/>
+      <FILE id="rmDJr1" name="EnvelopeGateEditorViewModel.cpp" compile="1"
+            resource="0" file="Source/EnvelopeGateEditorViewModel.cpp"/>
+      <FILE id="KHiJxF" name="EnvelopeGateEditorViewModel.h" compile="0"
+            resource="0" file="Source/EnvelopeGateEditorViewModel.h"/>
       <FILE id="ZvSXiL" name="EnvelopeGateProcessor.cpp" compile="1" resource="0"
             file="Source/EnvelopeGateProcessor.cpp"/>
       <FILE id="C0iYfV" name="EnvelopeGateProcessor.h" compile="0" resource="0"

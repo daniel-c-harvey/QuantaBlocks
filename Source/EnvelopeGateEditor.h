@@ -12,22 +12,17 @@
 
 #include <JuceHeader.h>
 #include "EnvelopeGateProcessor.h"
+#include "EnvelopeGateEditorViewModel.h"
 
 class EnvelopeGateEditor : public juce::AudioProcessorEditor
 {
 public:
     EnvelopeGateEditor(EnvelopeGateProcessor&);
 
-    int getSizeX();
-    int getSizeY();
-
     void paint(juce::Graphics&) override;
     void resized() override;
 
 protected:
     EnvelopeGateProcessor& processor;
-
-private:
-    int sizeX;
-    int sizeY;
+    QuantaBlocksViewModel model;
 };

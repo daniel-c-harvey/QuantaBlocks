@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\EnvelopeGateEditor.cpp"/>
+    <ClCompile Include="..\..\Source\EnvelopeGateEditorViewModel.cpp"/>
     <ClCompile Include="..\..\Source\EnvelopeGateProcessor.cpp"/>
     <ClCompile Include="..\..\Source\PluginProcessor.cpp"/>
     <ClCompile Include="..\..\Source\PluginEditor.cpp"/>
@@ -2443,6 +2444,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\EnvelopeGateEditor.h"/>
+    <ClInclude Include="..\..\Source\EnvelopeGateEditorViewModel.h"/>
     <ClInclude Include="..\..\Source\EnvelopeGateProcessor.h"/>
     <ClInclude Include="..\..\Source\PluginProcessor.h"/>
     <ClInclude Include="..\..\Source\PluginEditor.h"/>

@@ -607,6 +607,9 @@
     <ClCompile Include="..\..\Source\EnvelopeGateEditor.cpp">
       <Filter>Quanta Blocks\EnvelopeGate</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\EnvelopeGateEditorViewModel.cpp">
+      <Filter>Quanta Blocks\EnvelopeGate</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\EnvelopeGateProcessor.cpp">
       <Filter>Quanta Blocks\EnvelopeGate</Filter>
     </ClCompile>
@@ -3082,6 +3085,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\EnvelopeGateEditor.h">
+      <Filter>Quanta Blocks\EnvelopeGate</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\EnvelopeGateEditorViewModel.h">
       <Filter>Quanta Blocks\EnvelopeGate</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\EnvelopeGateProcessor.h">
