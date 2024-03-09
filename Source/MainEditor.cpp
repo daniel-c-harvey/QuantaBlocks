@@ -8,7 +8,7 @@
   ==============================================================================
 */
 
-#include "EnvelopeGateEditor.h"
+#include "MainEditor.h"
 #include <JuceHeader.h>
 
 EnvelopeGateEditor::EnvelopeGateEditor(EnvelopeGateProcessor& p) 

@@ -8,7 +8,7 @@
   ==============================================================================
 */
 
-#include "EnvelopeGateEditorViewModel.h"
+#include "ViewModel.h"
 
 QuantaBlocksViewModel::QuantaBlocksViewModel()
 {

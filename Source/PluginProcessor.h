@@ -9,7 +9,7 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include "EnvelopeGateProcessor.h"
+#include "MainProcessor.h"
 
 //==============================================================================
 /**

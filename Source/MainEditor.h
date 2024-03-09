@@ -11,8 +11,8 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include "EnvelopeGateProcessor.h"
-#include "EnvelopeGateEditorViewModel.h"
+#include "MainProcessor.h"
+#include "ViewModel.h"
 
 class EnvelopeGateEditor : public juce::AudioProcessorEditor
 {

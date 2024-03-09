@@ -5,19 +5,14 @@
               companyEmail="daniel@snailbird.net" companyName="Snailbird Lab"
               pluginFormats="buildStandalone,buildVST3" postExportShellCommandWin="echo Hello; break;">
   <MAINGROUP id="TFpdnm" name="Quanta Blocks">
-    <GROUP id="{F4CDA7FB-D714-C8BF-A949-02DC0EA85A1C}" name="EnvelopeGate">
-      <FILE id="gePFXC" name="EnvelopeGateEditor.cpp" compile="1" resource="0"
-            file="Source/EnvelopeGateEditor.cpp"/>
-      <FILE id="xbbXwE" name="EnvelopeGateEditor.h" compile="0" resource="0"
-            file="Source/EnvelopeGateEditor.h"/>
-      <FILE id="rmDJr1" name="EnvelopeGateEditorViewModel.cpp" compile="1"
-            resource="0" file="Source/EnvelopeGateEditorViewModel.cpp"/>
-      <FILE id="KHiJxF" name="EnvelopeGateEditorViewModel.h" compile="0"
-            resource="0" file="Source/EnvelopeGateEditorViewModel.h"/>
-      <FILE id="ZvSXiL" name="EnvelopeGateProcessor.cpp" compile="1" resource="0"
-            file="Source/EnvelopeGateProcessor.cpp"/>
-      <FILE id="C0iYfV" name="EnvelopeGateProcessor.h" compile="0" resource="0"
-            file="Source/EnvelopeGateProcessor.h"/>
+    <GROUP id="{F4CDA7FB-D714-C8BF-A949-02DC0EA85A1C}" name="QuantaBlocks">
+      <FILE id="gePFXC" name="MainEditor.cpp" compile="1" resource="0" file="Source/MainEditor.cpp"/>
+      <FILE id="xbbXwE" name="MainEditor.h" compile="0" resource="0" file="Source/MainEditor.h"/>
+      <FILE id="rmDJr1" name="ViewModel.cpp" compile="1" resource="0" file="Source/ViewModel.cpp"/>
+      <FILE id="KHiJxF" name="ViewModel.h" compile="0" resource="0" file="Source/ViewModel.h"/>
+      <FILE id="ZvSXiL" name="MainProcessor.cpp" compile="1" resource="0"
+            file="Source/MainProcessor.cpp"/>
+      <FILE id="C0iYfV" name="MainProcessor.h" compile="0" resource="0" file="Source/MainProcessor.h"/>
     </GROUP>
     <GROUP id="{044C73DC-31ED-B636-95BC-6C37D8A3FF2D}" name="Source">
       <FILE id="vhZvRM" name="PluginProcessor.cpp" compile="1" resource="0"

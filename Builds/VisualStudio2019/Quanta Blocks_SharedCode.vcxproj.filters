@@ -2,8 +2,8 @@
 
 <Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Quanta Blocks\EnvelopeGate">
-      <UniqueIdentifier>{59F4069A-0BA5-A257-E5B6-709283F35783}</UniqueIdentifier>
+    <Filter Include="Quanta Blocks\QuantaBlocks">
+      <UniqueIdentifier>{B3D9608E-69B1-C5BA-6327-6AA1FBE6D13E}</UniqueIdentifier>
     </Filter>
     <Filter Include="Quanta Blocks\Source">
       <UniqueIdentifier>{DED744AA-CA46-A686-62AC-FEF4F8807A7B}</UniqueIdentifier>
@@ -604,14 +604,14 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\EnvelopeGateEditor.cpp">
-      <Filter>Quanta Blocks\EnvelopeGate</Filter>
+    <ClCompile Include="..\..\Source\MainEditor.cpp">
+      <Filter>Quanta Blocks\QuantaBlocks</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\EnvelopeGateEditorViewModel.cpp">
-      <Filter>Quanta Blocks\EnvelopeGate</Filter>
+    <ClCompile Include="..\..\Source\ViewModel.cpp">
+      <Filter>Quanta Blocks\QuantaBlocks</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\EnvelopeGateProcessor.cpp">
-      <Filter>Quanta Blocks\EnvelopeGate</Filter>
+    <ClCompile Include="..\..\Source\MainProcessor.cpp">
+      <Filter>Quanta Blocks\QuantaBlocks</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\PluginProcessor.cpp">
       <Filter>Quanta Blocks\Source</Filter>
@@ -3084,14 +3084,14 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\EnvelopeGateEditor.h">
-      <Filter>Quanta Blocks\EnvelopeGate</Filter>
+    <ClInclude Include="..\..\Source\MainEditor.h">
+      <Filter>Quanta Blocks\QuantaBlocks</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\EnvelopeGateEditorViewModel.h">
-      <Filter>Quanta Blocks\EnvelopeGate</Filter>
+    <ClInclude Include="..\..\Source\ViewModel.h">
+      <Filter>Quanta Blocks\QuantaBlocks</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\EnvelopeGateProcessor.h">
-      <Filter>Quanta Blocks\EnvelopeGate</Filter>
+    <ClInclude Include="..\..\Source\MainProcessor.h">
+      <Filter>Quanta Blocks\QuantaBlocks</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\PluginProcessor.h">
       <Filter>Quanta Blocks\Source</Filter>

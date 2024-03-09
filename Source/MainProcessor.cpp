@@ -8,7 +8,7 @@
   ==============================================================================
 */
 
-#include "EnvelopeGateProcessor.h"
+#include "MainProcessor.h"
 
 EnvelopeGateProcessor::EnvelopeGateProcessor()
     : AudioProcessor (juce::AudioProcessor::BusesProperties()
