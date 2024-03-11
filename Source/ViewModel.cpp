@@ -59,6 +59,26 @@ void QuantaBlocks::ViewModel::Gate(float gate)
     parameters.gate_portion = gate;
 }
 
+int QuantaBlocks::ViewModel::SyncNumerator()
+{
+    return parameters.gate_num;
+}
+
+void QuantaBlocks::ViewModel::SyncNumerator(int numerator)
+{
+    parameters.gate_num = numerator;
+}
+
+int QuantaBlocks::ViewModel::SyncDenominator()
+{
+    return parameters.gate_denom;
+}
+
+void QuantaBlocks::ViewModel::SyncDenominator(int denominator)
+{
+    parameters.gate_denom = denominator;
+}
+
 float QuantaBlocks::ViewModel::EnvGain()
 {
     return parameters.env_gain;

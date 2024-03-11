@@ -46,9 +46,12 @@ void QuantaBlocks::MainProcessor::processBlock(juce::AudioBuffer<float>&, juce::
     block_parameters.tempo = pos.getBpm().emplace();
     block_parameters.sec_per_beat = 60.f / block_parameters.tempo;
     block_parameters.ms_per_beat = block_parameters.sec_per_beat * 1000.f;
-    //block_parameters.pulse_per_beat = sync_denom / ts_denom * sync_num;
+    block_parameters.pulse_per_beat = processor_parameters.SyncDenominator() / 4 * processor_parameters.SyncNumerator(); // TODO replace the 4 with the host tempo denominator
     block_parameters.ms_per_pulse = block_parameters.ms_per_beat / block_parameters.pulse_per_beat;
 
+    float pulse_pos = pos. * block_parameters.pulse_per_beat;
+    hold_ms = hold_p * block_parameters.ms_per_beat / block_parameters.pulse_per_beat;
+    env_scalar = 0;
 }
 
 void QuantaBlocks::MainProcessor::getStateInformation(juce::MemoryBlock& destData)

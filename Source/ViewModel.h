@@ -14,12 +14,14 @@
 
 namespace QuantaBlocks
 {
-    static struct {
-        juce::String ATTACK = "attack";
-        juce::String RELEASE = "release";
-        juce::String CURVE = "curve";
-        juce::String GATE = "gate";
-        juce::String GAIN = "gain";
+    const static struct {
+        const juce::String ATTACK = "attack";
+        const juce::String RELEASE = "release";
+        const juce::String CURVE = "curve";
+        const juce::String GATE = "gate";
+        const juce::String NUM = "sync_numerator";
+        const juce::String DENOM = "sync_denominator";
+        const juce::String GAIN = "gain";
     } PARAM_NAMES;
 
     struct Parameters
@@ -28,6 +30,8 @@ namespace QuantaBlocks
         float release_ms;
         float phi_curve;
         float gate_portion;
+        int gate_num;
+        int gate_denom;
         float env_gain;
     };
 
@@ -48,6 +52,12 @@ namespace QuantaBlocks
     
         float Gate();
         void Gate(float);
+
+        int SyncNumerator();
+        void SyncNumerator(int);
+    
+        int SyncDenominator();
+        void SyncDenominator(int);
     
         float EnvGain();
         void EnvGain(float);
