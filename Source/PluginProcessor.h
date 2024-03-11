@@ -14,7 +14,7 @@
 //==============================================================================
 /**
 */
-class QuantaBlocksAudioProcessor : public QuantaBlocksProcessor
+class QuantaBlocksAudioProcessor : public QuantaBlocks::MainProcessor
 {
 public:
     //==============================================================================

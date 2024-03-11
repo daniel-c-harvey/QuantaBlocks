@@ -11,33 +11,41 @@
 #pragma once
 
 #include <JuceHeader.h>
-
-class QuantaBlocksViewModel
+namespace QuantaBlocks
 {
-public:
-    QuantaBlocksViewModel();
+    struct Parameters
+    {
+        float attack_ms;
+        float release_ms;
+        float phi_curve;
+        float gate_portion;
+        float env_gain;
+    };
 
-    float getAttack();
-    void setAttack(float);
+    class ViewModel
+    {
+    public:
+        ViewModel();
 
-    float getRelease();
-    void setRelease(float);
-    
-    float getCurve();
-    void setCurve(float);
-    
-    float getHold();
-    void setHold(float);
-    
-    float getEnvGain();
-    void setEnvGain(float);
+        // Accessors & Modifiers
+        float Attack();
+        void Attack(float);
 
-    static juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
+        float Release();
+        void Release(float);
     
-protected:    
-    float attack_ms;
-    float release_ms;
-    float phi_curve;
-    float hold_ms;
-    float env_gain;
-};
+        float Curve();
+        void Curve(float);
+    
+        float Gate();
+        void Gate(float);
+    
+        float EnvGain();
+        void EnvGain(float);
+
+        static juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
+    
+    protected:    
+        Parameters parameters;
+    };
+}

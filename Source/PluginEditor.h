@@ -15,7 +15,7 @@
 //==============================================================================
 /**
 */
-class QuantaBlocksAudioProcessorEditor : public QuantaBlocksEditor
+class QuantaBlocksAudioProcessorEditor : public QuantaBlocks::MainEditor
 {
 public:
     QuantaBlocksAudioProcessorEditor (QuantaBlocksAudioProcessor&);

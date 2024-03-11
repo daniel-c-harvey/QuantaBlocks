@@ -11,34 +11,33 @@
 #include "MainProcessor.h"
 
 
-QuantaBlocksProcessor::QuantaBlocksProcessor()
+QuantaBlocks::MainProcessor::MainProcessor()
     : AudioProcessor(juce::AudioProcessor::BusesProperties()
         .withInput("Input", juce::AudioChannelSet::stereo(), true)
         .withOutput("Output", juce::AudioChannelSet::stereo(), true)
-    ), apvts(*this, nullptr, "Parameters", QuantaBlocksViewModel::createParameterLayout())
+    ), apvts(*this, nullptr, "Parameters", QuantaBlocks::ViewModel::createParameterLayout())
 {
 }
 
-QuantaBlocksProcessor::~QuantaBlocksProcessor()
+QuantaBlocks::MainProcessor::~MainProcessor()
 {
 }
 
-void QuantaBlocksProcessor::processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&)
+void QuantaBlocks::MainProcessor::processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&)
 {
 }
 
-void QuantaBlocksProcessor::getStateInformation(juce::MemoryBlock& destData)
+void QuantaBlocks::MainProcessor::getStateInformation(juce::MemoryBlock& destData)
 {
     juce::MemoryOutputStream mos(destData, true);
     apvts.state.writeToStream(mos);
 }
 
-void QuantaBlocksProcessor::setStateInformation(const void* data, int sizeInBytes)
+void QuantaBlocks::MainProcessor::setStateInformation(const void* data, int sizeInBytes)
 {
     auto tree = juce::ValueTree::readFromData(data, sizeInBytes);
     if (tree.isValid())
     {
-        // load parameters
         apvts.state = tree;
     }
 }

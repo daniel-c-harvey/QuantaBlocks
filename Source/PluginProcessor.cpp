@@ -11,7 +11,7 @@
 
 //==============================================================================
 QuantaBlocksAudioProcessor::QuantaBlocksAudioProcessor()
-    : QuantaBlocksProcessor()
+    : QuantaBlocks::MainProcessor()
 {
 }
 
@@ -128,7 +128,8 @@ bool QuantaBlocksAudioProcessor::hasEditor() const
 
 juce::AudioProcessorEditor* QuantaBlocksAudioProcessor::createEditor()
 {
-    return new QuantaBlocksAudioProcessorEditor (*this);
+    return new juce::GenericAudioProcessorEditor(this);
+    //return new QuantaBlocksAudioProcessorEditor (*this);
 }
 
 //==============================================================================

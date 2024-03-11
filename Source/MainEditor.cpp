@@ -11,14 +11,14 @@
 #include "MainEditor.h"
 #include <JuceHeader.h>
 
-QuantaBlocksEditor::QuantaBlocksEditor(QuantaBlocksProcessor& p) 
+QuantaBlocks::MainEditor::MainEditor(MainProcessor& p)
     : juce::AudioProcessorEditor(&p), processor(p)
 {
     // default size
     setSize(300, 400);
 }
 
-void QuantaBlocksEditor::paint(juce::Graphics& g)
+void QuantaBlocks::MainEditor::paint(juce::Graphics& g)
 {
     g.fillAll(getLookAndFeel().findColour(juce::ResizableWindow::backgroundColourId));
 
@@ -27,7 +27,7 @@ void QuantaBlocksEditor::paint(juce::Graphics& g)
     g.drawFittedText("Hello World!", getLocalBounds(), juce::Justification::centred, 1);
 }
 
-void QuantaBlocksEditor::resized()
+void QuantaBlocks::MainEditor::resized()
 {
     setBounds(getBoundsInParent());
 }

@@ -13,18 +13,21 @@
 #include <JuceHeader.h>
 #include "ViewModel.h"
 
-class QuantaBlocksProcessor : public juce::AudioProcessor
+namespace QuantaBlocks
 {
-public:
-    QuantaBlocksProcessor();
-    ~QuantaBlocksProcessor() override;
+    class MainProcessor : public juce::AudioProcessor
+    {
+    public:
+        MainProcessor();
+        ~MainProcessor() override;
 
-    //==============================================================================
-    void processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
-    void getStateInformation(juce::MemoryBlock& destData) override;
-    void setStateInformation(const void* data, int sizeInBytes) override;
+        //==============================================================================
+        void processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
+        void getStateInformation(juce::MemoryBlock& destData) override;
+        void setStateInformation(const void* data, int sizeInBytes) override;
     
-    //==============================================================================
-    QuantaBlocksViewModel parameters;
-    juce::AudioProcessorValueTreeState apvts;
-};
+        //==============================================================================
+        QuantaBlocks::ViewModel parameters;
+        juce::AudioProcessorValueTreeState apvts;
+    };
+}

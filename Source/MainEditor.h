@@ -13,14 +13,17 @@
 #include <JuceHeader.h>
 #include "MainProcessor.h"
 
-class QuantaBlocksEditor : public juce::AudioProcessorEditor
+namespace QuantaBlocks
 {
-public:
-    QuantaBlocksEditor(QuantaBlocksProcessor&);
+    class MainEditor : public juce::AudioProcessorEditor
+    {
+    public:
+        MainEditor(QuantaBlocks::MainProcessor&);
 
-    void paint(juce::Graphics&) override;
-    void resized() override;
+        void paint(juce::Graphics&) override;
+        void resized() override;
 
-protected:
-    QuantaBlocksProcessor& processor;
-};
+    protected:
+        QuantaBlocks::MainProcessor& processor;
+    };
+}

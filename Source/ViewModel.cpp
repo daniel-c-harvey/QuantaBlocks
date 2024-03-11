@@ -10,73 +10,73 @@
 
 #include "ViewModel.h"
 
-QuantaBlocksViewModel::QuantaBlocksViewModel()
+QuantaBlocks::ViewModel::ViewModel()
 {
-    attack_ms = 0.f;
-    release_ms = 0.f;
-    hold_ms = 0.f;
-    phi_curve = 1.f;
-    env_gain = 1.f;
+    parameters.attack_ms = 0.f;
+    parameters.release_ms = 0.f;
+    parameters.gate_portion = 0.f;
+    parameters.phi_curve = 1.f;
+    parameters.env_gain = 1.f;
 }
 
-float QuantaBlocksViewModel::getAttack()
+float QuantaBlocks::ViewModel::Attack()
 {
-    return attack_ms;
+    return parameters.attack_ms;
 }
 
-void QuantaBlocksViewModel::setAttack(float attack)
+void QuantaBlocks::ViewModel::Attack(float attack)
 {
-    attack_ms = attack;
+    parameters.attack_ms = attack;
 }
 
-float QuantaBlocksViewModel::getRelease()
+float QuantaBlocks::ViewModel::Release()
 {
-    return release_ms;
+    return parameters.release_ms;
 }
 
-void QuantaBlocksViewModel::setRelease(float release)
+void QuantaBlocks::ViewModel::Release(float release)
 {
-    release_ms = release;
+    parameters.release_ms = release;
 }
 
-float QuantaBlocksViewModel::getCurve()
+float QuantaBlocks::ViewModel::Curve()
 {
-    return phi_curve;
+    return parameters.phi_curve;
 }
 
-void QuantaBlocksViewModel::setCurve(float curve)
+void QuantaBlocks::ViewModel::Curve(float curve)
 {
-    phi_curve = curve;
+    parameters.phi_curve = curve;
 }
 
-float QuantaBlocksViewModel::getHold()
+float QuantaBlocks::ViewModel::Gate()
 {
-    return hold_ms;
+    return parameters.gate_portion;
 }
 
-void QuantaBlocksViewModel::setHold(float hold)
+void QuantaBlocks::ViewModel::Gate(float gate)
 {
-    hold_ms = hold;
+    parameters.gate_portion = gate;
 }
 
-float QuantaBlocksViewModel::getEnvGain()
+float QuantaBlocks::ViewModel::EnvGain()
 {
-    return env_gain;
+    return parameters.env_gain;
 }
 
-void QuantaBlocksViewModel::setEnvGain(float gain)
+void QuantaBlocks::ViewModel::EnvGain(float gain)
 {
-    env_gain = gain;
+    parameters.env_gain = gain;
 }
 
-juce::AudioProcessorValueTreeState::ParameterLayout QuantaBlocksViewModel::createParameterLayout()
+juce::AudioProcessorValueTreeState::ParameterLayout QuantaBlocks::ViewModel::createParameterLayout()
 {
     juce::AudioProcessorValueTreeState::ParameterLayout layout;
 
     layout.add(std::make_unique<juce::AudioParameterFloat>(
         "attack",
         "Attack",
-        juce::NormalisableRange<float>(0.f, 2000.f, 1.f, 5.f, false),
+        juce::NormalisableRange<float>(0.f, 2000.f, 1.f, 0.5f, false),
         10.f,
         "Attack (ms)"
         ));
@@ -84,9 +84,33 @@ juce::AudioProcessorValueTreeState::ParameterLayout QuantaBlocksViewModel::creat
     layout.add(std::make_unique<juce::AudioParameterFloat>(
         "release",
         "Release",
-        juce::NormalisableRange<float>(0.f, 2000.f, 1.f, 5.f, false),
+        juce::NormalisableRange<float>(0.f, 2000.f, 1.f, 0.5f, false),
         10.f,
-        "Release(ms)"
+        "Release (ms)"
+        ));
+
+    layout.add(std::make_unique<juce::AudioParameterFloat>(
+        "curve",
+        "Curve",
+        juce::NormalisableRange<float>(0.1f, 10.f, 1.f, 0.8f, true),
+        1.f,
+        "Curve (φ)"
+        ));
+
+    layout.add(std::make_unique<juce::AudioParameterFloat>(
+        "gate",
+        "Gate",
+        juce::NormalisableRange<float>(0.f, 1.f, 0.12625f, 1.f, false),
+        0.5f,
+        "Gate Portion"
+        ));
+
+    layout.add(std::make_unique<juce::AudioParameterFloat>(
+        "gain1",
+        "Gain1",
+        juce::NormalisableRange<float>(0.f, 1.f, 0.12625f, 1.f, false),
+        1.f,
+        "Envelope Gain 1"
         ));
 
     return layout;
