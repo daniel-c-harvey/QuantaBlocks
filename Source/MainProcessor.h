@@ -15,6 +15,18 @@
 
 namespace QuantaBlocks
 {
+    struct BlockParameters
+    {
+        int block_length;
+        float sample_rate;
+        float dt;
+        float sec_per_beat;
+        float ms_per_beat;
+        float pulse_per_beat;
+        float ms_per_pulse;
+        double tempo;   
+    };
+
     class MainProcessor : public juce::AudioProcessor
     {
     public:
@@ -28,7 +40,12 @@ namespace QuantaBlocks
         void setStateInformation(const void* data, int sizeInBytes) override;
     
         //==============================================================================
-        QuantaBlocks::ViewModel parameters;
+        QuantaBlocks::ViewModel processor_parameters;
+
+    protected:
+        BlockParameters block_parameters;
+
+    private:
         juce::AudioProcessorValueTreeState apvts;
     };
 }
