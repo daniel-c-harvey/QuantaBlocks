@@ -15,6 +15,8 @@
 
 namespace QuantaBlocks
 {
+    static const int ENVELOPE_COUNT = 1;
+
     struct BlockParameters
     {
         int block_length;
@@ -24,7 +26,10 @@ namespace QuantaBlocks
         float ms_per_beat;
         float pulse_per_beat;
         float ms_per_pulse;
-        double tempo;   
+
+        double tempo;
+        double pulse_position;
+        int timesignature_denominator;
     };
 
     class MainProcessor : public juce::AudioProcessor
@@ -40,7 +45,9 @@ namespace QuantaBlocks
         void setStateInformation(const void* data, int sizeInBytes) override;
     
         //==============================================================================
-        QuantaBlocks::ViewModel processor_parameters;
+
+        bool getHostTimeInfo();
+        QuantaBlocks::ViewModel<ENVELOPE_COUNT> processor_parameters;
 
     protected:
         BlockParameters block_parameters;

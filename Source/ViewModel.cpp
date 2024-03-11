@@ -9,87 +9,120 @@
 */
 
 #include "ViewModel.h"
+#include <string>
 
-QuantaBlocks::ViewModel::ViewModel()
+template <int ENVELOPE_COUNT>
+QuantaBlocks::ViewModel<ENVELOPE_COUNT>::ViewModel()
 {
     parameters.attack_ms = 0.f;
     parameters.release_ms = 0.f;
     parameters.gate_portion = 0.f;
     parameters.phi_curve = 1.f;
-    parameters.env_gain = 1.f;
+    parameters.env_gain = std::vector<float>((size_t)ENVELOPE_COUNT);
 }
 
-float QuantaBlocks::ViewModel::Attack()
+template <int ENVELOPE_COUNT>
+QuantaBlocks::ViewModel<ENVELOPE_COUNT>::~ViewModel()
+{
+}
+
+template <int ENVELOPE_COUNT>
+float QuantaBlocks::ViewModel<ENVELOPE_COUNT>::Attack()
 {
     return parameters.attack_ms;
 }
 
-void QuantaBlocks::ViewModel::Attack(float attack)
+template <int ENVELOPE_COUNT>
+void QuantaBlocks::ViewModel<ENVELOPE_COUNT>::Attack(float attack)
 {
     parameters.attack_ms = attack;
 }
 
-float QuantaBlocks::ViewModel::Release()
+template <int ENVELOPE_COUNT>
+float QuantaBlocks::ViewModel<ENVELOPE_COUNT>::Release()
 {
     return parameters.release_ms;
 }
 
-void QuantaBlocks::ViewModel::Release(float release)
+template <int ENVELOPE_COUNT>
+void QuantaBlocks::ViewModel<ENVELOPE_COUNT>::Release(float release)
 {
     parameters.release_ms = release;
 }
 
-float QuantaBlocks::ViewModel::Curve()
+template <int ENVELOPE_COUNT>
+float QuantaBlocks::ViewModel<ENVELOPE_COUNT>::Curve()
 {
     return parameters.phi_curve;
 }
 
-void QuantaBlocks::ViewModel::Curve(float curve)
+template <int ENVELOPE_COUNT>
+void QuantaBlocks::ViewModel<ENVELOPE_COUNT>::Curve(float curve)
 {
     parameters.phi_curve = curve;
 }
 
-float QuantaBlocks::ViewModel::Gate()
+template <int ENVELOPE_COUNT>
+float QuantaBlocks::ViewModel<ENVELOPE_COUNT>::Gate()
 {
     return parameters.gate_portion;
 }
 
-void QuantaBlocks::ViewModel::Gate(float gate)
+template <int ENVELOPE_COUNT>
+void QuantaBlocks::ViewModel<ENVELOPE_COUNT>::Gate(float gate)
 {
     parameters.gate_portion = gate;
 }
 
-int QuantaBlocks::ViewModel::SyncNumerator()
+template <int ENVELOPE_COUNT>
+int QuantaBlocks::ViewModel<ENVELOPE_COUNT>::SyncNumerator()
 {
     return parameters.gate_num;
 }
 
-void QuantaBlocks::ViewModel::SyncNumerator(int numerator)
+template <int ENVELOPE_COUNT>
+void QuantaBlocks::ViewModel<ENVELOPE_COUNT>::SyncNumerator(int numerator)
 {
     parameters.gate_num = numerator;
 }
 
-int QuantaBlocks::ViewModel::SyncDenominator()
+template <int ENVELOPE_COUNT>
+int QuantaBlocks::ViewModel<ENVELOPE_COUNT>::SyncDenominator()
 {
     return parameters.gate_denom;
 }
 
-void QuantaBlocks::ViewModel::SyncDenominator(int denominator)
+template <int ENVELOPE_COUNT>
+void QuantaBlocks::ViewModel<ENVELOPE_COUNT>::SyncDenominator(int denominator)
 {
     parameters.gate_denom = denominator;
 }
 
-float QuantaBlocks::ViewModel::EnvGain()
+template <int ENVELOPE_COUNT>
+float QuantaBlocks::ViewModel<ENVELOPE_COUNT>::EnvGain(int envelope_index)
 {
-    return parameters.env_gain;
+    if (envelope_index >= 0 && envelope_index < parameters.env_gain.size()) {
+        return parameters.env_gain[envelope_index];
+    }
+    std::string error_message = "Invalid Index for envelope: " + std::to_string(envelope_index);
+    throw new std::exception(error_message.c_str());
 }
 
-void QuantaBlocks::ViewModel::EnvGain(float gain)
+template <int ENVELOPE_COUNT>
+void QuantaBlocks::ViewModel<ENVELOPE_COUNT>::EnvGain(int envelope_index, float gain)
 {
-    parameters.env_gain = gain;
+    if (envelope_index >= 0 && envelope_index < parameters.env_gain.size()) {
+        parameters.env_gain[envelope_index] = gain;
+    }
+    else
+    {
+        std::string error_message = "Invalid Index for envelope: " + std::to_string(envelope_index);
+        throw new std::exception(error_message.c_str());
+    }
 }
 
-juce::AudioProcessorValueTreeState::ParameterLayout QuantaBlocks::ViewModel::CreateParameterLayout()
+template <int ENVELOPE_COUNT>
+juce::AudioProcessorValueTreeState::ParameterLayout QuantaBlocks::ViewModel<ENVELOPE_COUNT>::CreateParameterLayout()
 {
     juce::AudioProcessorValueTreeState::ParameterLayout layout;
 
@@ -136,13 +169,18 @@ juce::AudioProcessorValueTreeState::ParameterLayout QuantaBlocks::ViewModel::Cre
     return layout;
 }
 
-QuantaBlocks::Parameters* QuantaBlocks::ViewModel::GetParametersFromTree(juce::AudioProcessorValueTreeState& apvts)
+
+template <int ENVELOPE_COUNT>
+QuantaBlocks::Parameters* QuantaBlocks::ViewModel<ENVELOPE_COUNT>::LoadFromTree(juce::AudioProcessorValueTreeState& apvts)
 {
     parameters.attack_ms = apvts.getRawParameterValue(QuantaBlocks::PARAM_NAMES.ATTACK)->load();
     parameters.release_ms = apvts.getRawParameterValue(QuantaBlocks::PARAM_NAMES.RELEASE)->load();
     parameters.phi_curve = apvts.getRawParameterValue(QuantaBlocks::PARAM_NAMES.CURVE)->load();
     parameters.gate_portion = apvts.getRawParameterValue(QuantaBlocks::PARAM_NAMES.GATE)->load();
-    parameters.env_gain = apvts.getRawParameterValue(QuantaBlocks::PARAM_NAMES.GAIN)->load();
+    for (float& gain : parameters.env_gain)
+    {
+        gain = apvts.getRawParameterValue(QuantaBlocks::PARAM_NAMES.GAIN)->load();
+    }
 
     return &parameters;
 }

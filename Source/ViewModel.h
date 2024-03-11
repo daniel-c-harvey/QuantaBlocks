@@ -32,13 +32,15 @@ namespace QuantaBlocks
         float gate_portion;
         int gate_num;
         int gate_denom;
-        float env_gain;
+        std::vector<float> env_gain;
     };
 
+    template <int ENVELOPE_COUNT>
     class ViewModel
     {
     public:
         ViewModel();
+        ~ViewModel();
 
         // Accessors & Modifiers
         float Attack();
@@ -46,25 +48,24 @@ namespace QuantaBlocks
 
         float Release();
         void Release(float);
-    
+        
         float Curve();
         void Curve(float);
-    
+        
         float Gate();
         void Gate(float);
 
         int SyncNumerator();
         void SyncNumerator(int);
-    
+        
         int SyncDenominator();
         void SyncDenominator(int);
-    
-        float EnvGain();
-        void EnvGain(float);
+        
+        float EnvGain(int);
+        void EnvGain(int, float);
 
         static juce::AudioProcessorValueTreeState::ParameterLayout CreateParameterLayout();
-        
-        QuantaBlocks::Parameters* GetParametersFromTree(juce::AudioProcessorValueTreeState&);
+        QuantaBlocks::Parameters* LoadFromTree(juce::AudioProcessorValueTreeState&);
     
     protected:    
         Parameters parameters;
