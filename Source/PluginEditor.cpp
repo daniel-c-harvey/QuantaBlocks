@@ -11,7 +11,7 @@
 
 //==============================================================================
 QuantaBlocksAudioProcessorEditor::QuantaBlocksAudioProcessorEditor (QuantaBlocksAudioProcessor& p)
-    : QuantaBlocks::MainEditor(p), audioProcessor (p)
+    : QuantaBlocks::MainEditor(p), audioProcessor(p)
 {
 }
 

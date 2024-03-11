@@ -22,7 +22,7 @@ public:
     ~QuantaBlocksAudioProcessor() override;
 
     //==============================================================================
-    void prepareToPlay (double sampleRate, int samplesPerBlock) override;
+    
     void releaseResources() override;
 
    #ifndef JucePlugin_PreferredChannelConfigurations

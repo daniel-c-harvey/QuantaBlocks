@@ -69,12 +69,12 @@ void QuantaBlocks::ViewModel::EnvGain(float gain)
     parameters.env_gain = gain;
 }
 
-juce::AudioProcessorValueTreeState::ParameterLayout QuantaBlocks::ViewModel::createParameterLayout()
+juce::AudioProcessorValueTreeState::ParameterLayout QuantaBlocks::ViewModel::CreateParameterLayout()
 {
     juce::AudioProcessorValueTreeState::ParameterLayout layout;
 
     layout.add(std::make_unique<juce::AudioParameterFloat>(
-        "attack",
+        QuantaBlocks::PARAM_NAMES.ATTACK,
         "Attack",
         juce::NormalisableRange<float>(0.f, 2000.f, 1.f, 0.5f, false),
         10.f,
@@ -82,7 +82,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout QuantaBlocks::ViewModel::cre
         ));
 
     layout.add(std::make_unique<juce::AudioParameterFloat>(
-        "release",
+        QuantaBlocks::PARAM_NAMES.RELEASE,
         "Release",
         juce::NormalisableRange<float>(0.f, 2000.f, 1.f, 0.5f, false),
         10.f,
@@ -90,7 +90,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout QuantaBlocks::ViewModel::cre
         ));
 
     layout.add(std::make_unique<juce::AudioParameterFloat>(
-        "curve",
+        QuantaBlocks::PARAM_NAMES.CURVE,
         "Curve",
         juce::NormalisableRange<float>(0.1f, 10.f, 1.f, 0.8f, true),
         1.f,
@@ -98,7 +98,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout QuantaBlocks::ViewModel::cre
         ));
 
     layout.add(std::make_unique<juce::AudioParameterFloat>(
-        "gate",
+        QuantaBlocks::PARAM_NAMES.GATE,
         "Gate",
         juce::NormalisableRange<float>(0.f, 1.f, 0.12625f, 1.f, false),
         0.5f,
@@ -106,7 +106,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout QuantaBlocks::ViewModel::cre
         ));
 
     layout.add(std::make_unique<juce::AudioParameterFloat>(
-        "gain1",
+        QuantaBlocks::PARAM_NAMES.GAIN,
         "Gain1",
         juce::NormalisableRange<float>(0.f, 1.f, 0.12625f, 1.f, false),
         1.f,
@@ -114,4 +114,15 @@ juce::AudioProcessorValueTreeState::ParameterLayout QuantaBlocks::ViewModel::cre
         ));
 
     return layout;
+}
+
+QuantaBlocks::Parameters* QuantaBlocks::ViewModel::GetParametersFromTree(juce::AudioProcessorValueTreeState& apvts)
+{
+    parameters.attack_ms = apvts.getRawParameterValue(QuantaBlocks::PARAM_NAMES.ATTACK)->load();
+    parameters.release_ms = apvts.getRawParameterValue(QuantaBlocks::PARAM_NAMES.RELEASE)->load();
+    parameters.phi_curve = apvts.getRawParameterValue(QuantaBlocks::PARAM_NAMES.CURVE)->load();
+    parameters.gate_portion = apvts.getRawParameterValue(QuantaBlocks::PARAM_NAMES.GATE)->load();
+    parameters.env_gain = apvts.getRawParameterValue(QuantaBlocks::PARAM_NAMES.GAIN)->load();
+
+    return &parameters;
 }

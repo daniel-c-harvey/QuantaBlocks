@@ -22,6 +22,7 @@ namespace QuantaBlocks
         ~MainProcessor() override;
 
         //==============================================================================
+        void prepareToPlay(double sampleRate, int samplesPerBlock) override;
         void processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
         void getStateInformation(juce::MemoryBlock& destData) override;
         void setStateInformation(const void* data, int sizeInBytes) override;

@@ -11,8 +11,17 @@
 #pragma once
 
 #include <JuceHeader.h>
+
 namespace QuantaBlocks
 {
+    static struct {
+        juce::String ATTACK = "attack";
+        juce::String RELEASE = "release";
+        juce::String CURVE = "curve";
+        juce::String GATE = "gate";
+        juce::String GAIN = "gain";
+    } PARAM_NAMES;
+
     struct Parameters
     {
         float attack_ms;
@@ -43,7 +52,9 @@ namespace QuantaBlocks
         float EnvGain();
         void EnvGain(float);
 
-        static juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
+        static juce::AudioProcessorValueTreeState::ParameterLayout CreateParameterLayout();
+        
+        QuantaBlocks::Parameters* GetParametersFromTree(juce::AudioProcessorValueTreeState&);
     
     protected:    
         Parameters parameters;
