@@ -26,4 +26,5 @@ public:
     
     //==============================================================================
     QuantaBlocksViewModel parameters;
+    juce::AudioProcessorValueTreeState apvts;
 };

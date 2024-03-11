@@ -10,11 +10,12 @@
 
 #include "MainProcessor.h"
 
+
 QuantaBlocksProcessor::QuantaBlocksProcessor()
-    : AudioProcessor (juce::AudioProcessor::BusesProperties()
+    : AudioProcessor(juce::AudioProcessor::BusesProperties()
         .withInput("Input", juce::AudioChannelSet::stereo(), true)
         .withOutput("Output", juce::AudioChannelSet::stereo(), true)
-    )
+    ), apvts(*this, nullptr, "Parameters", QuantaBlocksViewModel::createParameterLayout())
 {
 }
 
@@ -28,8 +29,16 @@ void QuantaBlocksProcessor::processBlock(juce::AudioBuffer<float>&, juce::MidiBu
 
 void QuantaBlocksProcessor::getStateInformation(juce::MemoryBlock& destData)
 {
+    juce::MemoryOutputStream mos(destData, true);
+    apvts.state.writeToStream(mos);
 }
 
 void QuantaBlocksProcessor::setStateInformation(const void* data, int sizeInBytes)
 {
+    auto tree = juce::ValueTree::readFromData(data, sizeInBytes);
+    if (tree.isValid())
+    {
+        // load parameters
+        apvts.state = tree;
+    }
 }

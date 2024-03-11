@@ -12,7 +12,6 @@
 
 #include <JuceHeader.h>
 #include "MainProcessor.h"
-#include "ViewModel.h"
 
 class QuantaBlocksEditor : public juce::AudioProcessorEditor
 {
@@ -24,5 +23,4 @@ public:
 
 protected:
     QuantaBlocksProcessor& processor;
-    QuantaBlocksViewModel model;
 };

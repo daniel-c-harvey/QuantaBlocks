@@ -10,8 +10,7 @@
 
 #include "ViewModel.h"
 
-QuantaBlocksViewModel::QuantaBlocksViewModel(QuantaBlocksProcessor& p)
-    : apvts { p, nullptr, "Parameters", createParameterLayout() }
+QuantaBlocksViewModel::QuantaBlocksViewModel()
 {
     attack_ms = 0.f;
     release_ms = 0.f;
