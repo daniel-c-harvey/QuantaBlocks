@@ -189,13 +189,13 @@ namespace QuantaBlocks
             "Curve",
             juce::NormalisableRange<float>(0.1f, 10.f, 1.f, 0.8f, true),
             1.f,
-            "Curve (φ)"
+            juce::CharPointer_UTF8("Curve (φ)")
             ));
 
         layout.add(std::make_unique<juce::AudioParameterFloat>(
             PARAMETER_NAMES::GATE,
             "Gate",
-            juce::NormalisableRange<float>(0.f, 1.f, 0.12625f, 1.f, false),
+            juce::NormalisableRange<float>(0.f, 1.f, 0.03125, 1.f, false),
             0.5f,
             "Gate Portion"
             ));

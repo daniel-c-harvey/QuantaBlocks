@@ -13,7 +13,7 @@
 const juce::String QuantaBlocks::PARAMETER_NAMES::ATTACK{ "attack" };
 const juce::String QuantaBlocks::PARAMETER_NAMES::RELEASE{ "release" };
 const juce::String QuantaBlocks::PARAMETER_NAMES::CURVE{ "curve" };
-const juce::String QuantaBlocks::PARAMETER_NAMES::GATE{ "curve" };
+const juce::String QuantaBlocks::PARAMETER_NAMES::GATE{ "gate" };
 const juce::String QuantaBlocks::PARAMETER_NAMES::NUM{ "sync_numerator" };
 const juce::String QuantaBlocks::PARAMETER_NAMES::DENOM{ "sync_denominator" };
 const juce::String QuantaBlocks::PARAMETER_NAMES::_GAIN{ "gain" };
