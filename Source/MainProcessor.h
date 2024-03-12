@@ -15,7 +15,7 @@
 
 namespace QuantaBlocks
 {
-    static const int ENVELOPE_COUNT = 1;
+    static constexpr int ENVELOPE_COUNT = 1;
 
     struct BlockParameters
     {

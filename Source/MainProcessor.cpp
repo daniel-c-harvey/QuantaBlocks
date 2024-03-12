@@ -39,7 +39,7 @@ void QuantaBlocks::MainProcessor::prepareToPlay(double sampleRate, int samplesPe
     block_parameters.block_length = samplesPerBlock;
 }
 
-void QuantaBlocks::MainProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBuffer& )
+void QuantaBlocks::MainProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBuffer&)
 {
     if (getHostTimeInfo())
     {    

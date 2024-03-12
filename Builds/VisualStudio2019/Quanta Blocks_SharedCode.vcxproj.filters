@@ -604,10 +604,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\MainEditor.cpp">
+    <ClCompile Include="..\..\Source\Model.cpp">
       <Filter>Quanta Blocks\QuantaBlocks</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\ViewModel.cpp">
+    <ClCompile Include="..\..\Source\MainEditor.cpp">
       <Filter>Quanta Blocks\QuantaBlocks</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\MainProcessor.cpp">
@@ -3084,6 +3084,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\Model.h">
+      <Filter>Quanta Blocks\QuantaBlocks</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\MainEditor.h">
       <Filter>Quanta Blocks\QuantaBlocks</Filter>
     </ClInclude>

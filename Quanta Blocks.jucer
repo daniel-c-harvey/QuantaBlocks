@@ -6,9 +6,10 @@
               pluginFormats="buildStandalone,buildVST3" postExportShellCommandWin="echo Hello; break;">
   <MAINGROUP id="TFpdnm" name="Quanta Blocks">
     <GROUP id="{F4CDA7FB-D714-C8BF-A949-02DC0EA85A1C}" name="QuantaBlocks">
+      <FILE id="FwMXfn" name="Model.cpp" compile="1" resource="0" file="Source/Model.cpp"/>
+      <FILE id="mlgHNM" name="Model.h" compile="0" resource="0" file="Source/Model.h"/>
       <FILE id="gePFXC" name="MainEditor.cpp" compile="1" resource="0" file="Source/MainEditor.cpp"/>
       <FILE id="xbbXwE" name="MainEditor.h" compile="0" resource="0" file="Source/MainEditor.h"/>
-      <FILE id="rmDJr1" name="ViewModel.cpp" compile="1" resource="0" file="Source/ViewModel.cpp"/>
       <FILE id="KHiJxF" name="ViewModel.h" compile="0" resource="0" file="Source/ViewModel.h"/>
       <FILE id="ZvSXiL" name="MainProcessor.cpp" compile="1" resource="0"
             file="Source/MainProcessor.cpp"/>

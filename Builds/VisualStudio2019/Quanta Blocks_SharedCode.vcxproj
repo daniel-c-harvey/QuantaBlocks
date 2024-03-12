@@ -139,8 +139,8 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\Model.cpp"/>
     <ClCompile Include="..\..\Source\MainEditor.cpp"/>
-    <ClCompile Include="..\..\Source\ViewModel.cpp"/>
     <ClCompile Include="..\..\Source\MainProcessor.cpp"/>
     <ClCompile Include="..\..\Source\PluginProcessor.cpp"/>
     <ClCompile Include="..\..\Source\PluginEditor.cpp"/>
@@ -2443,6 +2443,7 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_gui_extra.cpp"/>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\Model.h"/>
     <ClInclude Include="..\..\Source\MainEditor.h"/>
     <ClInclude Include="..\..\Source\ViewModel.h"/>
     <ClInclude Include="..\..\Source\MainProcessor.h"/>
