@@ -59,14 +59,42 @@ void QuantaBlocks::MainProcessor::processBlock(juce::AudioBuffer<float>& buffer,
                           block_parameters.pulse_per_beat;
         float gate_ms = processor_parameters.Gate() * block_parameters.ms_per_beat / 
                                                       block_parameters.pulse_per_beat;
-
-        float env_scalar = 1.f;
+        float env_scalar = 1.f, t_ms = 0;
         for (int sample_index = 0; sample_index < block_parameters.block_length; ++sample_index)
         {
             float t_pulse = block_parameters.dt / block_parameters.ms_per_pulse;
             float env_groupstart_pos = (pulse_pos + t_pulse) / ENVELOPE_COUNT * ENVELOPE_COUNT;
             float env_number = static_cast<int>(pulse_pos + t_pulse) % ENVELOPE_COUNT;
             float env_start_pos = (env_groupstart_pos + env_number);
+
+            float t_env = (pulse_pos - env_start_pos) * block_parameters.ms_per_pulse + t_ms;
+
+            // TODO move this to it's own Envelope class
+            std::string stage;
+            env_scalar = processor_parameters.EnvGain(env_number);
+                
+            if (t_env < processor_parameters.Attack()) {
+                stage = "Attack";
+                env_scalar *= std::powf(t_env / processor_parameters.Attack(), processor_parameters.Curve());
+            }
+            else if (t_env < processor_parameters.Attack() + gate_ms)
+            {
+                stage = "Hold";
+                // env_scalar *= 1.f; // noop
+            }
+            else if (t_env < processor_parameters.Attack() + gate_ms + processor_parameters.Release())
+            {
+                stage = "Release";
+                env_scalar *= 1 - std::powf((t_env - processor_parameters.Attack() - gate_ms) / 
+                                             processor_parameters.Release(), 
+                                             processor_parameters.Curve());
+            }
+            else {
+                stage = "End";
+                env_scalar = 0.f;
+            }
+
+            t_ms += block_parameters.dt;
 
             for (int channel_index = 0; channel_index < totalNumInputChannels; ++channel_index)
             {
