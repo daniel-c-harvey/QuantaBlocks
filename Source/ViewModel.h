@@ -187,7 +187,7 @@ namespace QuantaBlocks
         layout.add(std::make_unique<juce::AudioParameterFloat>(
             PARAMETER_NAMES::CURVE,
             "Curve",
-            juce::NormalisableRange<float>(0.1f, 10.f, 1.f, 0.8f, true),
+            juce::NormalisableRange<float>(0.1f, 10.f, 0.1f, 0.3f, false),
             1.f,
             juce::CharPointer_UTF8("Curve (φ)")
             ));
@@ -206,7 +206,7 @@ namespace QuantaBlocks
             layout.add(std::make_unique<juce::AudioParameterFloat>(
                 PARAMETER_NAMES::GAIN(envelope_number),
                 "Gain" + env_number,
-                juce::NormalisableRange<float>(0.f, 1.f, 0.12625f, 1.f, false),
+                juce::NormalisableRange<float>(0.f, 1.f, 0.03125, 1.f, false),
                 1.f,
                 "Envelope Gain " + env_number
                 ));
