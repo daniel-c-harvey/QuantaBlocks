@@ -26,6 +26,7 @@ namespace QuantaBlocks
         static const juce::String NUM;
         static const juce::String DENOM;
         static juce::String GAIN(int envelope_number);
+        static const juce::String OUTPUT;
     };
 
     // denominations of musical pulse that are actually useful (feel free to add or take away if you disagree)
@@ -42,8 +43,11 @@ namespace QuantaBlocks
         { "64", 64 }
     };
 
-    static std::function<int (const juce::String&)> denominatorValueFromString = 
-        [](const juce::String& text) { return TRIGGER_DENOMINATORS[text]; };
+    static int denominatorValue(const juce::String& text)
+    {
+        return TRIGGER_DENOMINATORS[text];
+    }
+
 
     struct Parameters
     {

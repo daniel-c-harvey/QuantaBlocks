@@ -63,6 +63,11 @@ namespace QuantaBlocks
         parameters.gate_num = 1;
         parameters.gate_denom = 4;
         parameters.envelope_gain = std::vector<float>(ENVELOPE_COUNT);
+
+        for (float gain : parameters.envelope_gain)
+        {
+            gain = 1.f;
+        }
     }
 
     template <int ENVELOPE_COUNT>
@@ -197,18 +202,22 @@ namespace QuantaBlocks
         layout.add(std::make_unique<juce::AudioParameterFloat>(
             PARAMETER_NAMES::GATE,
             "Gate",
-            juce::NormalisableRange<float>(0.f, 1.f, 0.03125, 1.f, false),
+            juce::NormalisableRange<float>(0.f, 1.f, 0.03125),
             0.5f,
             "Gate Portion"
             ));
 
-        layout.add(std::make_unique<juce::AudioParameterFloat>(
+        juce::StringArray numChoices {};
+        for (int num = 1; num <= 16; ++num)
+        {
+            numChoices.add(std::to_string(num));
+        }
+
+        layout.add(std::make_unique<juce::AudioParameterChoice>(
             PARAMETER_NAMES::NUM,
             "Numerator",
-            juce::NormalisableRange<float>(1.f, 32.f, 1.f, 1.f, false),
-            1.f,
-            "Trigger Numerator"
-            ));
+            numChoices,
+            0));
         
         juce::StringArray denomChoices {};
         for (auto choice : TRIGGER_DENOMINATORS)
@@ -220,10 +229,7 @@ namespace QuantaBlocks
             PARAMETER_NAMES::DENOM,
             "Denominator",
             denomChoices,
-            2,
-            juce::AudioParameterChoiceAttributes()
-                .withValueFromStringFunction(denominatorValueFromString)
-            ));
+            2));
 
         for (int envelope_number = 1; envelope_number <= ENVELOPE_COUNT; ++envelope_number)
         {
@@ -231,11 +237,18 @@ namespace QuantaBlocks
             layout.add(std::make_unique<juce::AudioParameterFloat>(
                 PARAMETER_NAMES::GAIN(envelope_number),
                 "Gain" + env_number,
-                juce::NormalisableRange<float>(0.f, 1.f, 0.03125, 1.f, false),
+                juce::NormalisableRange<float>(0.f, 1.f, 0.03125),
                 1.f,
                 "Envelope Gain " + env_number
                 ));
         }
+
+        // TESTING ONLY
+        layout.add(std::make_unique<juce::AudioParameterFloat>(
+            PARAMETER_NAMES::OUTPUT,
+            "Output",
+            juce::NormalisableRange<float>(0.f, 1.f, 0.000000001f),
+            0.f));
 
         return layout;
     }
@@ -247,6 +260,8 @@ namespace QuantaBlocks
         parameters.release_ms = apvts.getRawParameterValue(PARAMETER_NAMES::RELEASE)->load();
         parameters.phi_curve = apvts.getRawParameterValue(PARAMETER_NAMES::CURVE)->load();
         parameters.gate_portion = apvts.getRawParameterValue(PARAMETER_NAMES::GATE)->load();
+        parameters.gate_num = std::stoi(apvts.getParameter(PARAMETER_NAMES::NUM)->getCurrentValueAsText().toStdString());
+        parameters.gate_denom = denominatorValue(apvts.getParameter(PARAMETER_NAMES::DENOM)->getCurrentValueAsText());
         for (int envelope_index = 0; envelope_index < ENVELOPE_COUNT; ++envelope_index)
         {
             parameters.envelope_gain[envelope_index] = apvts.getRawParameterValue(PARAMETER_NAMES::GAIN(envelope_index + 1))->load();

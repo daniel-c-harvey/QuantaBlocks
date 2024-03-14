@@ -26,6 +26,7 @@ namespace QuantaBlocks
         float ms_per_beat;
         float pulse_per_beat;
         float ms_per_pulse;
+        float gate_ms;
 
         double tempo;
         double pulse_position;
