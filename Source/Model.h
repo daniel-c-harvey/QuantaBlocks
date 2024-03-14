@@ -28,6 +28,23 @@ namespace QuantaBlocks
         static juce::String GAIN(int envelope_number);
     };
 
+    // denominations of musical pulse that are actually useful (feel free to add or take away if you disagree)
+    static std::map<juce::String, int> TRIGGER_DENOMINATORS
+    {
+        { "1",   1 },
+        { "2",   2 },
+        { "4",   4 },
+        { "8",   8 },
+        { "12", 12 },
+        { "16", 16 },
+        { "24", 24 },
+        { "32", 32 },
+        { "64", 64 }
+    };
+
+    static std::function<int (const juce::String&)> denominatorValueFromString = 
+        [](const juce::String& text) { return TRIGGER_DENOMINATORS[text]; };
+
     struct Parameters
     {
         float attack_ms;
