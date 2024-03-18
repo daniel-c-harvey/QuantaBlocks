@@ -101,5 +101,5 @@ float QuantaBlocks::EnvelopeGroupProcessor::processSample(int envelope_count,
     
     t_ms += block_parameters.dt;
 
-    return env_scalar * envelope->processCountour(t_env);
+    return env_scalar * envelope->processCountour(t_env); // todo fix read access violation
 }

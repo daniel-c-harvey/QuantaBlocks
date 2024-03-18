@@ -40,15 +40,18 @@ void QuantaBlocks::MainProcessor::processBlock(juce::AudioBuffer<float>& buffer,
         jassert(totalNumInputChannels == 2);
 
         BlockParameters block_parameters{ getBlockSize(), getSampleRate() };
+        time_parameters->blockSetup(processor_parameters.SyncNumerator(),
+                                    processor_parameters.SyncDenominator(),
+                                    processor_parameters.Gate());
         envelope.prepareBlock();
 
-        float env_scalar = 1.f;
+        float env_scalar;
         for (int sample_index = 0; sample_index < block_parameters.block_length; ++sample_index)
         {
             env_scalar = envelope.processSample(ENVELOPE_COUNT, 
-                                   processor_parameters.getParameterModel(), 
-                                   block_parameters,
-                                   time_parameters.value());
+                                                processor_parameters.getParameterModel(), 
+                                                block_parameters,
+                                                time_parameters.value());
 
             for (int channel_index = 0; channel_index < totalNumInputChannels; ++channel_index)
             {
@@ -56,7 +59,7 @@ void QuantaBlocks::MainProcessor::processBlock(juce::AudioBuffer<float>& buffer,
                 *sample = *sample * env_scalar;
             }
 
-            jassert(env_scalar >= 0);
+            jassert(env_scalar >= 0.f && env_scalar <= 1.f);
 
             // TESTING ONLY
             apvts.getParameter(QuantaBlocks::PARAMETER_NAMES::OUTPUT)->setValueNotifyingHost(env_scalar);
@@ -85,10 +88,13 @@ std::optional<QuantaBlocks::TimeParameters> QuantaBlocks::MainProcessor::getHost
     auto time_params = std::optional<QuantaBlocks::TimeParameters>();
 
     juce::AudioPlayHead* play_info = this->getPlayHead();
-    
+
     auto pos = play_info->getPosition();
     if (!pos) return time_params;
         
+    bool is_playing = pos->getIsPlaying();
+    if (!is_playing) return time_params;
+
     auto beat_position = pos->getPpqPosition();
     if (!beat_position) return time_params;
 
