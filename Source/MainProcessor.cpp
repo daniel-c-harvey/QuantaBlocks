@@ -45,7 +45,7 @@ void QuantaBlocks::MainProcessor::processBlock(juce::AudioBuffer<float>& buffer,
         float env_scalar = 1.f;
         for (int sample_index = 0; sample_index < block_parameters.block_length; ++sample_index)
         {
-            envelope.processSample(ENVELOPE_COUNT, 
+            env_scalar = envelope.processSample(ENVELOPE_COUNT, 
                                    processor_parameters.getParameterModel(), 
                                    block_parameters,
                                    time_parameters.value());
@@ -63,8 +63,6 @@ void QuantaBlocks::MainProcessor::processBlock(juce::AudioBuffer<float>& buffer,
         }
     }
 }
-
-
 
 void QuantaBlocks::MainProcessor::getStateInformation(juce::MemoryBlock& destData)
 {
@@ -87,7 +85,7 @@ std::optional<QuantaBlocks::TimeParameters> QuantaBlocks::MainProcessor::getHost
     auto time_params = std::optional<QuantaBlocks::TimeParameters>();
 
     juce::AudioPlayHead* play_info = this->getPlayHead();
-        
+    
     auto pos = play_info->getPosition();
     if (!pos) return time_params;
         
@@ -95,7 +93,7 @@ std::optional<QuantaBlocks::TimeParameters> QuantaBlocks::MainProcessor::getHost
     if (!beat_position) return time_params;
 
     auto bpm = pos->getBpm();
-    if (!bpm) return time_params;
+    if (!bpm || *bpm <= 0) return time_params;
 
     auto time_signature = pos->getTimeSignature();
     if (!time_signature) return time_params;

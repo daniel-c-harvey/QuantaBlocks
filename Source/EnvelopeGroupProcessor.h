@@ -11,6 +11,7 @@
 #pragma once
 
 #include "Model.h"
+#include "Envelope.h"
 
 namespace QuantaBlocks
 {
@@ -59,10 +60,10 @@ namespace QuantaBlocks
 
         //===========================================================
         void prepareBlock();
-        void processSample(int, std::unique_ptr<Parameters>, const BlockParameters&, const TimeParameters&);
+        float processSample(int, Parameters*, const BlockParameters&, const TimeParameters&);
 
     private:
-        
+        std::shared_ptr<Envelope<AHREnvelopeParameters>> envelope; // todo parameterize the envelope parameter type further out
         float t_ms;
     };
 }

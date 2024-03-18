@@ -66,6 +66,7 @@ void QuantaBlocks::TimeParameters::init(double tempo, int timesignature_denomina
 }
 
 QuantaBlocks::EnvelopeGroupProcessor::EnvelopeGroupProcessor()
+    : envelope{ &AHREnvelope(AHREnvelopeParameters()) }
 {
     t_ms = 0.f;
 }
@@ -79,10 +80,10 @@ void QuantaBlocks::EnvelopeGroupProcessor::prepareBlock()
     t_ms = 0.f;
 }
 
-void QuantaBlocks::EnvelopeGroupProcessor::processSample(int envelope_count, 
-                                           std::unique_ptr<Parameters> processor_parameters, 
-                                           const BlockParameters& block_parameters,
-                                           const TimeParameters& time_parameters)
+float QuantaBlocks::EnvelopeGroupProcessor::processSample(int envelope_count, 
+                                                          Parameters* processor_parameters, 
+                                                          const BlockParameters& block_parameters,
+                                                          const TimeParameters& time_parameters)
 {
     float t_pulse = block_parameters.dt / time_parameters.ms_per_pulse;
 
@@ -93,34 +94,12 @@ void QuantaBlocks::EnvelopeGroupProcessor::processSample(int envelope_count,
 
     float t_env = (time_parameters.pulse_position - env_start_pos) * time_parameters.ms_per_pulse + t_ms;
 
-
-    // TODO move this to it's own Envelope class
-    std::string stage;
-    float env_scalar = processor_parameters->envelope_gain[env_number];
+    float env_scalar = processor_parameters->envelope_gain[env_number]; // todo move the gain amt multiplier back to the processor?  or keep her because it belongs to the group logic?
 
     jassert(env_scalar >= 0);
     jassert(t_env >= 0);
-
-    if (t_env < processor_parameters->attack_ms) {
-        stage = "Attack";
-        env_scalar *= std::powf(t_env / processor_parameters->attack_ms, processor_parameters->phi_curve);
-    }
-    else if (t_env < processor_parameters->attack_ms + time_parameters.gate_ms)
-    {
-        stage = "Hold";
-        // env_scalar *= 1.f; // noop
-    }
-    else if (t_env < processor_parameters->attack_ms + time_parameters.gate_ms + processor_parameters->release_ms)
-    {
-        stage = "Release";
-        env_scalar *= 1 - 
-            std::powf((t_env - processor_parameters->attack_ms - time_parameters.gate_ms) / processor_parameters->release_ms,
-            processor_parameters->phi_curve);
-    }
-    else {
-        stage = "End";
-        env_scalar = 0.f;
-    }
-
+    
     t_ms += block_parameters.dt;
+
+    return env_scalar * envelope->processCountour(t_env);
 }
