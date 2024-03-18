@@ -604,6 +604,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\Envelope.cpp">
+      <Filter>Quanta Blocks\QuantaBlocks</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\EnvelopeGroupProcessor.cpp">
       <Filter>Quanta Blocks\QuantaBlocks</Filter>
     </ClCompile>
@@ -3087,6 +3090,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\Envelope.h">
+      <Filter>Quanta Blocks\QuantaBlocks</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\EnvelopeGroupProcessor.h">
       <Filter>Quanta Blocks\QuantaBlocks</Filter>
     </ClInclude>
