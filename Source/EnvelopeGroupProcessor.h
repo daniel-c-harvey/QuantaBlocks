@@ -51,11 +51,11 @@ namespace QuantaBlocks
         void init(double, int, double);
     };
 
-    class Envelope
+    class EnvelopeGroupProcessor
     {
     public:
-        Envelope();
-        ~Envelope();
+        EnvelopeGroupProcessor();
+        ~EnvelopeGroupProcessor();
 
         //===========================================================
         void prepareBlock();

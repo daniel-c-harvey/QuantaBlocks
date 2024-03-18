@@ -12,7 +12,7 @@
 
 #include <JuceHeader.h>
 #include "ViewModel.h"
-#include "Envelope.h"
+#include "EnvelopeGroupProcessor.h"
 
 namespace QuantaBlocks
 {
@@ -32,7 +32,7 @@ namespace QuantaBlocks
 
     protected:
         QuantaBlocks::ViewModel<ENVELOPE_COUNT> processor_parameters;
-        Envelope envelope;
+        EnvelopeGroupProcessor envelope;
         
         //==============================================================================
         std::optional<QuantaBlocks::TimeParameters> getHostTimeInfo();

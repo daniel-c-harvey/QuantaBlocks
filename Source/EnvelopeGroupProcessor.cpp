@@ -8,7 +8,7 @@
   ==============================================================================
 */
 
-#include "Envelope.h"
+#include "EnvelopeGroupProcessor.h"
 
 QuantaBlocks::BlockParameters::BlockParameters()
 {
@@ -65,21 +65,21 @@ void QuantaBlocks::TimeParameters::init(double tempo, int timesignature_denomina
     this->beat_position = beat_position;
 }
 
-QuantaBlocks::Envelope::Envelope()
+QuantaBlocks::EnvelopeGroupProcessor::EnvelopeGroupProcessor()
 {
     t_ms = 0.f;
 }
 
-QuantaBlocks::Envelope::~Envelope()
+QuantaBlocks::EnvelopeGroupProcessor::~EnvelopeGroupProcessor()
 {
 }
 
-void QuantaBlocks::Envelope::prepareBlock()
+void QuantaBlocks::EnvelopeGroupProcessor::prepareBlock()
 {
     t_ms = 0.f;
 }
 
-void QuantaBlocks::Envelope::processSample(int envelope_count, 
+void QuantaBlocks::EnvelopeGroupProcessor::processSample(int envelope_count, 
                                            std::unique_ptr<Parameters> processor_parameters, 
                                            const BlockParameters& block_parameters,
                                            const TimeParameters& time_parameters)
