@@ -48,7 +48,7 @@ namespace QuantaBlocks
 
         static juce::AudioProcessorValueTreeState::ParameterLayout CreateParameterLayout();
         Parameters* LoadFromTree(juce::AudioProcessorValueTreeState&);
-    
+        std::unique_ptr<Parameters> getParameterModel();
     protected:    
         Parameters parameters;
     };
@@ -268,5 +268,11 @@ namespace QuantaBlocks
         }
 
         return &parameters;
+    }
+
+    template <int ENVELOPE_COUNT>
+    std::unique_ptr<Parameters> ViewModel<ENVELOPE_COUNT>::getParameterModel()
+    {
+        return std::make_unique<Parameters>(parameters);
     }
 }
