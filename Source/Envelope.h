@@ -11,6 +11,7 @@
 #pragma once
 #include <string>
 #include <memory>
+#include "Model.h"
 
 namespace QuantaBlocks
 {
@@ -22,11 +23,18 @@ namespace QuantaBlocks
         std::shared_ptr<float> release_ms;
         std::shared_ptr<float> phi_curve;
 
+        EnvelopeParameters(const ModelParameters&);
+        ~EnvelopeParameters();
+
         void virtual operator=(const EnvelopeParameters&);
     };
 
     struct AHREnvelopeParameters : EnvelopeParameters
     {
+        AHREnvelopeParameters(const ModelParameters&);
+        AHREnvelopeParameters(const AHREnvelopeParameters&);
+        ~AHREnvelopeParameters();
+        
         std::shared_ptr<float> hold_ms;
 
         void virtual operator=(const AHREnvelopeParameters&);
@@ -36,7 +44,7 @@ namespace QuantaBlocks
     class Envelope
     {
     public:
-        Envelope(const TEnvelopeParams&);
+        Envelope(const ModelParameters&);
         ~Envelope();
 
         //======================================================================
@@ -50,7 +58,7 @@ namespace QuantaBlocks
     class AHREnvelope : public Envelope<AHREnvelopeParameters>
     {
     public:
-        AHREnvelope(const AHREnvelopeParameters&);
+        AHREnvelope(const ModelParameters&);
         ~AHREnvelope();
 
         //======================================================================
@@ -60,13 +68,11 @@ namespace QuantaBlocks
     //**************************************************************************
 
     template<typename TEnvelopeParams>
-    inline Envelope<TEnvelopeParams>::Envelope(const TEnvelopeParams& p)
-    {
-        parameters = p;
-    }
+    inline Envelope<TEnvelopeParams>::Envelope(const ModelParameters& p)
+        : parameters(p)
+    { /* empty */ }
+
     template<typename TEnvelopeParams>
     inline Envelope<TEnvelopeParams>::~Envelope()
-    {
-        // empty
-    }
+    { /* empty */ }
 }

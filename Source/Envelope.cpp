@@ -11,6 +11,17 @@
 #include <cmath>
 #include "Envelope.h"
 
+QuantaBlocks::EnvelopeParameters::EnvelopeParameters(const ModelParameters& parameters)
+{
+    this->attack_ms = parameters.attack_ms;
+    //this->attack_ms = std::make_shared<float>(&parameters.attack_ms);
+    this->release_ms = parameters.release_ms;
+    this->phi_curve = parameters.phi_curve;
+}
+
+QuantaBlocks::EnvelopeParameters::~EnvelopeParameters()
+{
+}
 
 void QuantaBlocks::EnvelopeParameters::operator=(const EnvelopeParameters& other)
 {
@@ -19,13 +30,32 @@ void QuantaBlocks::EnvelopeParameters::operator=(const EnvelopeParameters& other
     phi_curve = other.phi_curve;
 }
 
+QuantaBlocks::AHREnvelopeParameters::AHREnvelopeParameters(const ModelParameters& parameters)
+    : QuantaBlocks::EnvelopeParameters::EnvelopeParameters(parameters)
+{
+    hold_ms = parameters.gate_ms;
+}
+
+QuantaBlocks::AHREnvelopeParameters::AHREnvelopeParameters(const AHREnvelopeParameters& other)
+    : QuantaBlocks::EnvelopeParameters::EnvelopeParameters(other)
+{
+    hold_ms = other.hold_ms;
+}
+
+QuantaBlocks::AHREnvelopeParameters::~AHREnvelopeParameters()
+{
+}
+
 void QuantaBlocks::AHREnvelopeParameters::operator=(const AHREnvelopeParameters& other)
 {
     EnvelopeParameters::operator=(other);
     hold_ms = other.hold_ms;
 }
 
-QuantaBlocks::AHREnvelope::AHREnvelope(const AHREnvelopeParameters& params) : Envelope<AHREnvelopeParameters>(params) {}
+QuantaBlocks::AHREnvelope::AHREnvelope(const ModelParameters& parameters) 
+    : Envelope<AHREnvelopeParameters>(parameters) 
+{
+}
 
 QuantaBlocks::AHREnvelope::~AHREnvelope()
 {

@@ -45,18 +45,19 @@ namespace QuantaBlocks
 
     static int denominatorValue(const juce::String& text)
     {
-        return TRIGGER_DENOMINATORS[text];
+        return TRIGGER_DENOMINATORS[text]; // todo I don't think the string matching is working since the instances are different
     }
 
 
-    struct Parameters
+    struct ModelParameters
     {
-        float attack_ms;
-        float release_ms;
-        float phi_curve;
-        float gate_portion;
-        int gate_num;
-        int gate_denom;
+        std::shared_ptr<float> attack_ms;
+        std::shared_ptr<float> release_ms;
+        std::shared_ptr<float> phi_curve; // add alpha beta variants for attack and release
+        std::shared_ptr<float> gate_portion;
+        std::shared_ptr<float> gate_ms;
+        std::shared_ptr<int> gate_num;
+        std::shared_ptr<int> gate_denom;
         std::vector<float> envelope_gain;
     };
 }

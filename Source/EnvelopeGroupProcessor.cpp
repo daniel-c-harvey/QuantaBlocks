@@ -42,17 +42,12 @@ QuantaBlocks::TimeParameters::TimeParameters(double tempo, int timesignature_den
     ms_per_beat = sec_per_beat * 1000.f;
 }
 
-void QuantaBlocks::TimeParameters::update(double tempo, int timesignature_denominator, double beat_position)
-{
-    init(tempo, timesignature_denominator, beat_position);
-}
-
 void QuantaBlocks::TimeParameters::blockSetup(int sync_num, int sync_denom, float gate_length)
 {
-    pulse_per_beat = static_cast<float>(sync_denom) / timesignature_denominator * sync_num;
+    pulse_per_beat = static_cast<float>(sync_denom) / static_cast<float>(timesignature_denominator) / static_cast<float>(sync_num);
     ms_per_pulse = ms_per_beat / pulse_per_beat;
     pulse_position = beat_position * pulse_per_beat;
-    gate_ms =  gate_length * ms_per_pulse;
+    
 }
 
 void QuantaBlocks::TimeParameters::init(double tempo, int timesignature_denominator, double beat_position)
@@ -65,25 +60,29 @@ void QuantaBlocks::TimeParameters::init(double tempo, int timesignature_denomina
     this->beat_position = beat_position;
 }
 
-QuantaBlocks::EnvelopeGroupProcessor::EnvelopeGroupProcessor()
-    : envelope{ &AHREnvelope(AHREnvelopeParameters()) }
+template <typename TEnvelope>
+QuantaBlocks::EnvelopeGroupProcessor<TEnvelope>::EnvelopeGroupProcessor(const ModelParameters& parameters)
+    : envelope{ std::make_shared<TEnvelope>(TEnvelope(parameters)) }
 {
     t_ms = 0.f;
 }
 
-QuantaBlocks::EnvelopeGroupProcessor::~EnvelopeGroupProcessor()
+template <typename TEnvelope>
+QuantaBlocks::EnvelopeGroupProcessor<TEnvelope>::~EnvelopeGroupProcessor()
 {
 }
 
-void QuantaBlocks::EnvelopeGroupProcessor::prepareBlock()
+template <typename TEnvelope>
+void QuantaBlocks::EnvelopeGroupProcessor<TEnvelope>::prepareBlock()
 {
     t_ms = 0.f;
 }
 
-float QuantaBlocks::EnvelopeGroupProcessor::processSample(int envelope_count, 
-                                                          Parameters* processor_parameters, 
-                                                          const BlockParameters& block_parameters,
-                                                          const TimeParameters& time_parameters)
+template <typename TEnvelope>
+float QuantaBlocks::EnvelopeGroupProcessor<TEnvelope>::processSample(int envelope_count, 
+                                                                     ModelParameters* processor_parameters, 
+                                                                     const BlockParameters& block_parameters,
+                                                                     const TimeParameters& time_parameters)
 {
     float t_pulse = block_parameters.dt / time_parameters.ms_per_pulse;
 
@@ -94,7 +93,7 @@ float QuantaBlocks::EnvelopeGroupProcessor::processSample(int envelope_count,
 
     float t_env = (time_parameters.pulse_position - env_start_pos) * time_parameters.ms_per_pulse + t_ms;
 
-    float env_scalar = processor_parameters->envelope_gain[env_number]; // todo move the gain amt multiplier back to the processor?  or keep her because it belongs to the group logic?
+    float env_scalar = processor_parameters->envelope_gain[env_number];
 
     jassert(env_scalar >= 0);
     jassert(t_env >= 0);
@@ -103,3 +102,5 @@ float QuantaBlocks::EnvelopeGroupProcessor::processSample(int envelope_count,
 
     return env_scalar * envelope->processCountour(t_env); // todo fix read access violation
 }
+
+template QuantaBlocks::EnvelopeGroupProcessor<QuantaBlocks::AHREnvelope>;

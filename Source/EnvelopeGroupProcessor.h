@@ -36,8 +36,6 @@ namespace QuantaBlocks
         float ms_per_pulse;
         float pulse_position;
 
-        float gate_ms;
-
         double tempo;
         int timesignature_denominator;
         double beat_position;
@@ -45,25 +43,25 @@ namespace QuantaBlocks
         TimeParameters(double, int, double);
 
         //===========================================================
-        void update(double, int, double);
         void blockSetup(int, int, float);
 
     private:
         void init(double, int, double);
     };
 
+    template <typename TEnvelope>
     class EnvelopeGroupProcessor
     {
     public:
-        EnvelopeGroupProcessor();
+        EnvelopeGroupProcessor(const ModelParameters&);
         ~EnvelopeGroupProcessor();
 
         //===========================================================
         void prepareBlock();
-        float processSample(int, Parameters*, const BlockParameters&, const TimeParameters&);
+        float processSample(int, ModelParameters*, const BlockParameters&, const TimeParameters&);
 
     private:
-        std::shared_ptr<Envelope<AHREnvelopeParameters>> envelope; // todo parameterize the envelope parameter type further out
+        std::shared_ptr<TEnvelope> envelope;
         float t_ms;
     };
 }

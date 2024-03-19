@@ -47,21 +47,23 @@ namespace QuantaBlocks
         void EnvGain(int, float);
 
         static juce::AudioProcessorValueTreeState::ParameterLayout CreateParameterLayout();
-        Parameters* LoadFromTree(juce::AudioProcessorValueTreeState&);
-        Parameters* getParameterModel();
+        void LoadFromTree(juce::AudioProcessorValueTreeState&);
+        ModelParameters* getParameterModel();
+
     protected:    
-        Parameters parameters;
+        ModelParameters parameters;
     };
 
     template <int ENVELOPE_COUNT>
     inline ViewModel<ENVELOPE_COUNT>::ViewModel()
     {
-        parameters.attack_ms = 0.f;
-        parameters.release_ms = 0.f;
-        parameters.gate_portion = 0.f;
-        parameters.phi_curve = 1.f;
-        parameters.gate_num = 1;
-        parameters.gate_denom = 4;
+        parameters.attack_ms = std::make_shared<float>(0.f);
+        parameters.release_ms = std::make_shared<float>(0.f);
+        parameters.gate_portion = std::make_shared<float>(0.f);
+        parameters.phi_curve = std::make_shared<float>(1.f);
+        parameters.gate_ms = std::make_shared<float>(0.f);
+        parameters.gate_num = std::make_shared<int>(1);
+        parameters.gate_denom = std::make_shared<int>(4);
         parameters.envelope_gain = std::vector<float>(ENVELOPE_COUNT);
 
         for (float gain : parameters.envelope_gain)
@@ -78,73 +80,73 @@ namespace QuantaBlocks
     template <int ENVELOPE_COUNT>
     float ViewModel<ENVELOPE_COUNT>::Attack()
     {
-        return parameters.attack_ms;
+        return *parameters.attack_ms;
     }
 
     template <int ENVELOPE_COUNT>
     void ViewModel<ENVELOPE_COUNT>::Attack(float attack)
     {
-        parameters.attack_ms = attack;
+        *parameters.attack_ms = attack;
     }
 
     template <int ENVELOPE_COUNT>
     float ViewModel<ENVELOPE_COUNT>::Release()
     {
-        return parameters.release_ms;
+        return *parameters.release_ms;
     }
 
     template <int ENVELOPE_COUNT>
     void ViewModel<ENVELOPE_COUNT>::Release(float release)
     {
-        parameters.release_ms = release;
+        *parameters.release_ms = release;
     }
 
     template <int ENVELOPE_COUNT>
     float ViewModel<ENVELOPE_COUNT>::Curve()
     {
-        return parameters.phi_curve;
+        return *parameters.phi_curve;
     }
 
     template <int ENVELOPE_COUNT>
     void ViewModel<ENVELOPE_COUNT>::Curve(float curve)
     {
-        parameters.phi_curve = curve;
+        *parameters.phi_curve = curve;
     }
 
     template <int ENVELOPE_COUNT>
     float ViewModel<ENVELOPE_COUNT>::Gate()
     {
-        return parameters.gate_portion;
+        return *parameters.gate_portion;
     }
 
     template <int ENVELOPE_COUNT>
     void ViewModel<ENVELOPE_COUNT>::Gate(float gate)
     {
-        parameters.gate_portion = gate;
+        *parameters.gate_portion = gate;
     }
 
     template <int ENVELOPE_COUNT>
     int ViewModel<ENVELOPE_COUNT>::SyncNumerator()
     {
-        return parameters.gate_num;
+        return *parameters.gate_num;
     }
 
     template <int ENVELOPE_COUNT>
     void ViewModel<ENVELOPE_COUNT>::SyncNumerator(int numerator)
     {
-        parameters.gate_num = numerator;
+        *parameters.gate_num = numerator;
     }
 
     template <int ENVELOPE_COUNT>
     int ViewModel<ENVELOPE_COUNT>::SyncDenominator()
     {
-        return parameters.gate_denom;
+        return *parameters.gate_denom;
     }
 
     template <int ENVELOPE_COUNT>
     void ViewModel<ENVELOPE_COUNT>::SyncDenominator(int denominator)
     {
-        parameters.gate_denom = denominator;
+        *parameters.gate_denom = denominator;
     }
 
     template <int ENVELOPE_COUNT>
@@ -254,24 +256,24 @@ namespace QuantaBlocks
     }
 
     template <int ENVELOPE_COUNT>
-    Parameters* ViewModel<ENVELOPE_COUNT>::LoadFromTree(juce::AudioProcessorValueTreeState& apvts)
+    void ViewModel<ENVELOPE_COUNT>::LoadFromTree(juce::AudioProcessorValueTreeState& apvts)
     {
-        parameters.attack_ms = apvts.getRawParameterValue(PARAMETER_NAMES::ATTACK)->load();
-        parameters.release_ms = apvts.getRawParameterValue(PARAMETER_NAMES::RELEASE)->load();
-        parameters.phi_curve = apvts.getRawParameterValue(PARAMETER_NAMES::CURVE)->load();
-        parameters.gate_portion = apvts.getRawParameterValue(PARAMETER_NAMES::GATE)->load();
-        parameters.gate_num = std::stoi(apvts.getParameter(PARAMETER_NAMES::NUM)->getCurrentValueAsText().toStdString());
-        parameters.gate_denom = denominatorValue(apvts.getParameter(PARAMETER_NAMES::DENOM)->getCurrentValueAsText());
+        *parameters.attack_ms = apvts.getRawParameterValue(PARAMETER_NAMES::ATTACK)->load();
+        *parameters.release_ms = apvts.getRawParameterValue(PARAMETER_NAMES::RELEASE)->load();
+        *parameters.phi_curve = apvts.getRawParameterValue(PARAMETER_NAMES::CURVE)->load();
+        *parameters.gate_portion = apvts.getRawParameterValue(PARAMETER_NAMES::GATE)->load();
+        //parameters.gate_ms = gate_length * ms_per_pulse; // todo this
+        *parameters.gate_num = std::stoi(apvts.getParameter(PARAMETER_NAMES::NUM)->getCurrentValueAsText().toStdString());
+        *parameters.gate_denom = denominatorValue(apvts.getParameter(PARAMETER_NAMES::DENOM)->getCurrentValueAsText());
+        
         for (int envelope_index = 0; envelope_index < ENVELOPE_COUNT; ++envelope_index)
         {
             parameters.envelope_gain[envelope_index] = apvts.getRawParameterValue(PARAMETER_NAMES::GAIN(envelope_index + 1))->load();
         }
-
-        return &parameters;
     }
 
     template <int ENVELOPE_COUNT>
-    Parameters* ViewModel<ENVELOPE_COUNT>::getParameterModel()
+    ModelParameters* ViewModel<ENVELOPE_COUNT>::getParameterModel()
     {
         return &parameters;
     }

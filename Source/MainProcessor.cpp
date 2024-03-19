@@ -9,13 +9,15 @@
 */
 
 #include "MainProcessor.h"
+#include <memory>
 
 
 QuantaBlocks::MainProcessor::MainProcessor()
     : AudioProcessor(juce::AudioProcessor::BusesProperties()
         .withInput("Input", juce::AudioChannelSet::stereo(), true)
         .withOutput("Output", juce::AudioChannelSet::stereo(), true)
-    ), apvts(*this, nullptr, "Parameters", QuantaBlocks::ViewModel<ENVELOPE_COUNT>::CreateParameterLayout())       
+    ), apvts(*this, nullptr, "Parameters", QuantaBlocks::ViewModel<ENVELOPE_COUNT>::CreateParameterLayout()),
+    envelope(*processor_parameters.getParameterModel())
 {
 }
 
@@ -30,7 +32,6 @@ void QuantaBlocks::MainProcessor::prepareToPlay(double sampleRate, int samplesPe
 
 void QuantaBlocks::MainProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBuffer&)
 {
-    processor_parameters.LoadFromTree(apvts);
     auto time_parameters = getHostTimeInfo();
     if (time_parameters.has_value())
     {    
@@ -39,7 +40,11 @@ void QuantaBlocks::MainProcessor::processBlock(juce::AudioBuffer<float>& buffer,
         auto totalNumInputChannels = getTotalNumInputChannels();
         jassert(totalNumInputChannels == 2);
 
+        processor_parameters.LoadFromTree(apvts);
+        ModelParameters* model = processor_parameters.getParameterModel();
+
         BlockParameters block_parameters{ getBlockSize(), getSampleRate() };
+
         time_parameters->blockSetup(processor_parameters.SyncNumerator(),
                                     processor_parameters.SyncDenominator(),
                                     processor_parameters.Gate());
@@ -49,7 +54,7 @@ void QuantaBlocks::MainProcessor::processBlock(juce::AudioBuffer<float>& buffer,
         for (int sample_index = 0; sample_index < block_parameters.block_length; ++sample_index)
         {
             env_scalar = envelope.processSample(ENVELOPE_COUNT, 
-                                                processor_parameters.getParameterModel(), 
+                                                model, 
                                                 block_parameters,
                                                 time_parameters.value());
 

@@ -32,7 +32,7 @@ namespace QuantaBlocks
 
     protected:
         QuantaBlocks::ViewModel<ENVELOPE_COUNT> processor_parameters;
-        EnvelopeGroupProcessor envelope;
+        EnvelopeGroupProcessor<AHREnvelope> envelope;
         
         //==============================================================================
         std::optional<QuantaBlocks::TimeParameters> getHostTimeInfo();
