@@ -10,7 +10,7 @@
 
 #include "Model.h"
 
-const juce::String QuantaBlocks::PARAMETER_NAMES::ATTACK { "attack" };
+// const juce::String QuantaBlocks::PARAMETER_NAMES::ATTACK { "attack" };
 const juce::String QuantaBlocks::PARAMETER_NAMES::RELEASE { "release" };
 const juce::String QuantaBlocks::PARAMETER_NAMES::CURVE { "curve" };
 const juce::String QuantaBlocks::PARAMETER_NAMES::GATE { "gate" };

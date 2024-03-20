@@ -10,6 +10,8 @@
 
 #pragma once
 
+#define NAMEOF(name) #name
+
 #include <JuceHeader.h>
 
 namespace QuantaBlocks
@@ -19,7 +21,7 @@ namespace QuantaBlocks
     private:
         static const juce::String _GAIN;
     public:
-        static const juce::String ATTACK;
+        static constexpr juce::String ATTACK;
         static const juce::String RELEASE;
         static const juce::String CURVE;
         static const juce::String GATE;
@@ -42,6 +44,45 @@ namespace QuantaBlocks
         { "32", 32 },
         { "64", 64 }
     };
+
+    template <typename TEnum>
+    class Enumeration
+    {
+    public:
+        int id;
+        std::string name;
+
+        std::shared_ptr<std::set<TEnum>> getAll()
+        {
+            //if () // oh boy
+        }
+    protected:
+        Enumeration(int id, std::string name)
+        {
+            this->id = id;
+            this->name = name;
+        }
+
+        inline static std::set<TEnum*> enum_set{};
+        inline static std::unordered_map<int, TEnum*> enum_map{};
+    };
+
+    template <class TEnum>
+    class _SyncDenominatorChoices : Enumeration<TEnum>
+    {
+    private:
+        _SyncDenominatorChoices(const int& id, const std::string& name, const juce::String& label, const int& value)
+            : Enumeration<TEnum>(id, name)
+        {
+            Enumeration<TEnum>::enum_set.insert(this);
+            enum_map.insert_or_assign(this->id, this);
+        }
+    public:
+        constexpr static TEnum C01{ 1, NAMEOF(C01) };
+        constexpr static TEnum C02{ 2, NAMEOF(C02) };
+    };
+
+    class SyncDenominatorChoices : public _SyncDenominatorChoices<SyncDenominatorChoices> {};
 
     static int denominatorValue(const juce::String& text)
     {
