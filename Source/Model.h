@@ -13,82 +13,48 @@
 #define NAMEOF(name) #name
 
 #include <JuceHeader.h>
+#include "Enumeration.h"
 
 namespace QuantaBlocks
 {
-    const static struct PARAMETER_NAMES
+    constexpr static struct PARAMETER_NAMES
     {
     private:
-        static const juce::String _GAIN;
+        inline static juce::String GAIN_PREFIX{ "gain" };
     public:
-        static constexpr juce::String ATTACK;
-        static const juce::String RELEASE;
-        static const juce::String CURVE;
-        static const juce::String GATE;
-        static const juce::String NUM;
-        static const juce::String DENOM;
-        static juce::String GAIN(int envelope_number);
-        static const juce::String OUTPUT;
-    };
+        inline static juce::String ATTACK { "attack" };
+        inline static juce::String RELEASE{ "release" };
+        inline static juce::String CURVE{ "curve" };
+        inline static juce::String GATE{ "gate" };
+        inline static juce::String NUM{ "sync_numerator" };
+        inline static juce::String DENOM{ "sync_denominator" };
+        inline static juce::String OUTPUT{ "output" };
+        static juce::String GAIN(int envelope_number)
+        {
+            return GAIN_PREFIX + std::to_string(envelope_number);
+        }
+    } PARAMETER_NAMES;
 
-    // denominations of musical pulse that are actually useful (feel free to add or take away if you disagree)
-    static std::map<juce::String, int> TRIGGER_DENOMINATORS
-    {
-        { "1",   1 },
-        { "2",   2 },
-        { "4",   4 },
-        { "8",   8 },
-        { "12", 12 },
-        { "16", 16 },
-        { "24", 24 },
-        { "32", 32 },
-        { "64", 64 }
-    };
 
-    template <typename TEnum>
-    class Enumeration
+    class SyncDenominatorChoice : public Enumeration<SyncDenominatorChoice>
     {
     public:
-        int id;
-        std::string name;
+        juce::String label;
+        int denominator_value;
 
-        std::shared_ptr<std::set<TEnum>> getAll()
-        {
-            //if () // oh boy
-        }
-    protected:
-        Enumeration(int id, std::string name)
-        {
-            this->id = id;
-            this->name = name;
-        }
+        static SyncDenominatorChoice C01;
+        static SyncDenominatorChoice C02;
+        static SyncDenominatorChoice C04;
+        static SyncDenominatorChoice C08;
+        static SyncDenominatorChoice C12;
+        static SyncDenominatorChoice C16;
+        static SyncDenominatorChoice C32;
 
-        inline static std::set<TEnum*> enum_set{};
-        inline static std::unordered_map<int, TEnum*> enum_map{};
+        SyncDenominatorChoice(const int& id, const std::string& name, const juce::String& label, const int& value)
+            : Enumeration<SyncDenominatorChoice>(id, name), label{label}, denominator_value{value} {}
+    
+        static SyncDenominatorChoice* getByLabel(const juce::String& label);
     };
-
-    template <class TEnum>
-    class _SyncDenominatorChoices : Enumeration<TEnum>
-    {
-    private:
-        _SyncDenominatorChoices(const int& id, const std::string& name, const juce::String& label, const int& value)
-            : Enumeration<TEnum>(id, name)
-        {
-            Enumeration<TEnum>::enum_set.insert(this);
-            enum_map.insert_or_assign(this->id, this);
-        }
-    public:
-        constexpr static TEnum C01{ 1, NAMEOF(C01) };
-        constexpr static TEnum C02{ 2, NAMEOF(C02) };
-    };
-
-    class SyncDenominatorChoices : public _SyncDenominatorChoices<SyncDenominatorChoices> {};
-
-    static int denominatorValue(const juce::String& text)
-    {
-        return TRIGGER_DENOMINATORS[text]; // todo I don't think the string matching is working since the instances are different
-    }
-
 
     struct ModelParameters
     {

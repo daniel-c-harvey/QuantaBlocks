@@ -222,9 +222,11 @@ namespace QuantaBlocks
             0));
         
         juce::StringArray denomChoices {};
-        for (auto choice : TRIGGER_DENOMINATORS)
+        auto choices = *SyncDenominatorChoice::getAll();
+        for (auto choice_kvp : choices)
         {
-            denomChoices.add(choice.first);
+            auto choice = choice_kvp.second;
+            denomChoices.add(choice->label);
         }
 
         layout.add(std::make_unique<juce::AudioParameterChoice>(
@@ -264,7 +266,7 @@ namespace QuantaBlocks
         *parameters.gate_portion = apvts.getRawParameterValue(PARAMETER_NAMES::GATE)->load();
         //parameters.gate_ms = gate_length * ms_per_pulse; // todo this
         *parameters.gate_num = std::stoi(apvts.getParameter(PARAMETER_NAMES::NUM)->getCurrentValueAsText().toStdString());
-        *parameters.gate_denom = denominatorValue(apvts.getParameter(PARAMETER_NAMES::DENOM)->getCurrentValueAsText());
+        *parameters.gate_denom = SyncDenominatorChoice::getByLabel(apvts.getParameter(PARAMETER_NAMES::DENOM)->getCurrentValueAsText())->denominator_value;
         
         for (int envelope_index = 0; envelope_index < ENVELOPE_COUNT; ++envelope_index)
         {

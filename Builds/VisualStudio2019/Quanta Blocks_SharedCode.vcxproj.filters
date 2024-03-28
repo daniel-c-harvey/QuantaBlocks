@@ -3090,6 +3090,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\Enumeration.h">
+      <Filter>Quanta Blocks\QuantaBlocks</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\Envelope.h">
       <Filter>Quanta Blocks\QuantaBlocks</Filter>
     </ClInclude>

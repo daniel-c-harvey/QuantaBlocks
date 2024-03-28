@@ -2445,6 +2445,7 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_gui_extra.cpp"/>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\Enumeration.h"/>
     <ClInclude Include="..\..\Source\Envelope.h"/>
     <ClInclude Include="..\..\Source\EnvelopeGroupProcessor.h"/>
     <ClInclude Include="..\..\Source\Model.h"/>
