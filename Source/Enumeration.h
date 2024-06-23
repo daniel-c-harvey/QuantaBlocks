@@ -12,9 +12,10 @@
 
 #include <map>
 #include <string>
+#include <memory>
 
 template <class TEnum>
-class Enumeration
+class Enumeration //: public std::enable_shared_from_this<TEnum>
 {
 public:
     int id;
@@ -41,8 +42,7 @@ protected:
     Enumeration(const int& id, const std::string& name)
         : id{ id }, name{ name }
     {
-        auto ptr = reinterpret_cast<TEnum*>(this);
-        enum_map.insert_or_assign(this->id, ptr);
+        enum_map.insert_or_assign(this->id, reinterpret_cast<TEnum*>(this));
     }
 
     static inline std::unordered_map<int, TEnum*> enum_map{};

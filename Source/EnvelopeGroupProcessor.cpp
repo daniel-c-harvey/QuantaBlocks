@@ -47,7 +47,6 @@ void QuantaBlocks::TimeParameters::blockSetup(int sync_num, int sync_denom, floa
     pulse_per_beat = static_cast<float>(sync_denom) / static_cast<float>(timesignature_denominator) / static_cast<float>(sync_num);
     ms_per_pulse = ms_per_beat / pulse_per_beat;
     pulse_position = beat_position * pulse_per_beat;
-    
 }
 
 void QuantaBlocks::TimeParameters::init(double tempo, int timesignature_denominator, double beat_position)
@@ -84,16 +83,16 @@ float QuantaBlocks::EnvelopeGroupProcessor<TEnvelope>::processSample(int envelop
                                                                      const BlockParameters& block_parameters,
                                                                      const TimeParameters& time_parameters)
 {
-    float t_pulse = block_parameters.dt / time_parameters.ms_per_pulse;
+    float t_pulse = t_ms * block_parameters.dt / time_parameters.ms_per_pulse;
 
     float env_groupstart_pos = std::floor((time_parameters.pulse_position + t_pulse) / envelope_count) * envelope_count;
-    float env_number = static_cast<int>(time_parameters.pulse_position + t_pulse) % envelope_count;
+    float env_index = static_cast<int>(time_parameters.pulse_position + t_pulse) % envelope_count;
     
-    float env_start_pos = (env_groupstart_pos + env_number - 1);
+    float env_start_pos = (env_groupstart_pos + env_index);
 
     float t_env = (time_parameters.pulse_position - env_start_pos) * time_parameters.ms_per_pulse + t_ms;
 
-    float env_scalar = processor_parameters->envelope_gain[env_number];
+    float env_scalar = processor_parameters->envelope_gain[env_index];
 
     jassert(env_scalar >= 0);
     jassert(t_env >= 0);

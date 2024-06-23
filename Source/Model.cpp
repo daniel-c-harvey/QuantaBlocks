@@ -22,7 +22,7 @@ QuantaBlocks::SyncDenominatorChoice QuantaBlocks::SyncDenominatorChoice::C32{ 7,
 
 QuantaBlocks::SyncDenominatorChoice* QuantaBlocks::SyncDenominatorChoice::getByLabel(const juce::String& label)
 {
-    QuantaBlocks::SyncDenominatorChoice* ptr = nullptr;
+    QuantaBlocks::SyncDenominatorChoice* ptr;
     try
     {
         for (auto choice_kvp : enum_map)
@@ -33,6 +33,28 @@ QuantaBlocks::SyncDenominatorChoice* QuantaBlocks::SyncDenominatorChoice::getByL
                 return choice;
             }
         }
+        throw std::exception("Matching label not found.");
+    }
+    catch (std::exception ex)
+    {
+        system("PAUSE"); // haha
+    }
+}
+
+QuantaBlocks::SyncDenominatorChoice* QuantaBlocks::SyncDenominatorChoice::getByDenomintatorValue(const int& denominator_value)
+{
+    QuantaBlocks::SyncDenominatorChoice* ptr;
+    try
+    {
+        for (auto choice_kvp : enum_map)
+        {
+            auto choice = choice_kvp.second;
+            if (choice->denominator_value == denominator_value) // todo combine these and paramterize the predicate
+            {
+                return choice;
+            }
+        }
+        throw std::exception("Matching denominator value not found.");
     }
     catch (std::exception ex)
     {

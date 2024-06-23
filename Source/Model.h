@@ -51,20 +51,30 @@ namespace QuantaBlocks
         static SyncDenominatorChoice C32;
 
         SyncDenominatorChoice(const int& id, const std::string& name, const juce::String& label, const int& value)
-            : Enumeration<SyncDenominatorChoice>(id, name), label{label}, denominator_value{value} {}
+            : Enumeration<SyncDenominatorChoice>(id, name), 
+              label{label}, 
+              denominator_value{value} 
+        {}
+
+        SyncDenominatorChoice(const SyncDenominatorChoice& choice)
+            : Enumeration<SyncDenominatorChoice>(choice.id, choice.name), 
+              label{ choice.label }, 
+              denominator_value{ choice.denominator_value} 
+        {}
     
         static SyncDenominatorChoice* getByLabel(const juce::String& label);
+        static SyncDenominatorChoice* getByDenomintatorValue(const int& denominator_value);
     };
 
     struct ModelParameters
     {
-        std::shared_ptr<float> attack_ms;
-        std::shared_ptr<float> release_ms;
-        std::shared_ptr<float> phi_curve; // add alpha beta variants for attack and release
-        std::shared_ptr<float> gate_portion;
-        std::shared_ptr<float> gate_ms;
-        std::shared_ptr<int> gate_num;
-        std::shared_ptr<int> gate_denom;
+        float* attack_ms;
+        float* release_ms;
+        float* phi_curve; // add alpha beta variants for attack and release
+        float* gate_portion;
+        float* gate_ms;
+        int* gate_num;
+        int* gate_denom;
         std::vector<float> envelope_gain;
     };
 }

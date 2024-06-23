@@ -19,9 +19,9 @@ namespace QuantaBlocks
     // phi is an exponential coefficient which controls the snappiness of the envelope
     struct EnvelopeParameters
     {
-        std::shared_ptr<float> attack_ms;
-        std::shared_ptr<float> release_ms;
-        std::shared_ptr<float> phi_curve;
+        float* attack_ms;
+        float* release_ms;
+        float* phi_curve;
 
         EnvelopeParameters(const ModelParameters&);
         ~EnvelopeParameters();
@@ -35,7 +35,7 @@ namespace QuantaBlocks
         AHREnvelopeParameters(const AHREnvelopeParameters&);
         ~AHREnvelopeParameters();
         
-        std::shared_ptr<float> hold_ms;
+        float* hold_ms;
 
         void virtual operator=(const AHREnvelopeParameters&);
     };
