@@ -233,15 +233,7 @@ namespace QuantaBlocks
             PARAMETER_NAMES::DENOM,
             "Denominator",
             denomChoices,
-            2,
-            juce::AudioParameterChoiceAttributes()
-            /*.withValueFromStringFunction([](const juce::String& label) 
-                { return SyncDenominatorChoice::getByLabel(label)->denominator_value; }
-            )*/
-           /* .withStringFromValueFunction([](int denominator_value) 
-                { return SyncDenominatorChoice::getByDenomintatorValue(denominator_value)->label; }
-            )*/
-        ));
+            2));
 
         for (int envelope_number = 1; envelope_number <= ENVELOPE_COUNT; ++envelope_number)
         {
@@ -274,12 +266,7 @@ namespace QuantaBlocks
         *parameters.gate_portion = apvts.getRawParameterValue(PARAMETER_NAMES::GATE)->load();
         //parameters.gate_ms = gate_length * ms_per_pulse; // todo this
         *parameters.gate_num = std::stoi(apvts.getParameter(PARAMETER_NAMES::NUM)->getCurrentValueAsText().toStdString());
-
-        auto x = apvts.getParameter(PARAMETER_NAMES::DENOM);
-        auto y = x->getCurrentValueAsText();
-        auto z = SyncDenominatorChoice::getByLabel(y);
-        auto w = z->denominator_value;
-        *parameters.gate_denom = w;
+        *parameters.gate_denom = SyncDenominatorChoice::getByLabel(apvts.getParameter(PARAMETER_NAMES::DENOM)->getCurrentValueAsText())->denominator_value;
         
         for (int envelope_index = 0; envelope_index < ENVELOPE_COUNT; ++envelope_index)
         {
