@@ -63,6 +63,9 @@ QuantaBlocks::AHREnvelope::~AHREnvelope()
 
 float QuantaBlocks::AHREnvelope::processCountour(float t_env)
 {
+    /*if (t_env < 1.f) {
+        return 1.f;
+    }*/
     if (t_env < *parameters.attack_ms) {
         stage = "Attack";
         return std::powf(t_env / *parameters.attack_ms, *parameters.phi_curve);
@@ -75,7 +78,7 @@ float QuantaBlocks::AHREnvelope::processCountour(float t_env)
     else if (t_env < *parameters.attack_ms + *parameters.hold_ms + *parameters.release_ms)
     {
         stage = "Release";
-        return 1 - std::powf((t_env - *parameters.attack_ms - *parameters.hold_ms) / *parameters.release_ms, *parameters.phi_curve);
+        return 1.f - std::powf((t_env - *parameters.attack_ms - *parameters.hold_ms) / *parameters.release_ms, *parameters.phi_curve);
     }
     else {
         stage = "End";
